@@ -1,18 +1,18 @@
 jest.mock('@angular/router');
 
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {HttpResponse} from '@angular/common/http';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {FormBuilder} from '@angular/forms';
-import {ActivatedRoute} from '@angular/router';
-import {of, Subject} from 'rxjs';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpResponse } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { FormBuilder } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { of, Subject } from 'rxjs';
 
-import {ReviewService} from '../service/review.service';
-import {IReview, Review} from '../review.model';
-import {IPelicula} from 'app/entities/pelicula/pelicula.model';
-import {PeliculaService} from 'app/entities/pelicula/service/pelicula.service';
+import { ReviewService } from '../service/review.service';
+import { IReview, Review } from '../review.model';
+import { IPelicula } from 'app/entities/pelicula/pelicula.model';
+import { PeliculaService } from 'app/entities/pelicula/service/pelicula.service';
 
-import {ReviewUpdateComponent} from './review-update.component';
+import { ReviewUpdateComponent } from './review-update.component';
 
 describe('Component Tests', () => {
   describe('Review Management Update Component', () => {

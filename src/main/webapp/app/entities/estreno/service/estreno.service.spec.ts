@@ -1,11 +1,11 @@
-import {TestBed} from '@angular/core/testing';
-import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import * as dayjs from 'dayjs';
 
-import {DATE_FORMAT} from 'app/config/input.constants';
-import {Estreno, IEstreno} from '../estreno.model';
+import { DATE_FORMAT } from 'app/config/input.constants';
+import { IEstreno, Estreno } from '../estreno.model';
 
-import {EstrenoService} from './estreno.service';
+import { EstrenoService } from './estreno.service';
 
 describe('Service Tests', () => {
   describe('Estreno Service', () => {

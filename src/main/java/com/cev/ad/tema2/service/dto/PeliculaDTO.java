@@ -5,22 +5,23 @@ import java.util.Objects;
 import javax.validation.constraints.*;
 
 /**
- * A DTO for the {@link com.cev.ad.tema2.domain.Review} entity.
+ * A DTO for the {@link com.cev.ad.tema2.domain.Pelicula} entity.
  */
-public class ReviewDTO implements Serializable {
+public class PeliculaDTO implements Serializable {
 
     private Long id;
 
     @NotNull
-    @Min(value = 0)
-    @Max(value = 5)
-    private Integer puntuacion;
+    @Size(min = 10, max = 250)
+    private String titulo;
 
     @NotNull
-    @Size(min = 5)
+    @Size(min = 10)
     private String descripcion;
 
-    private PeliculaDTO pelicula;
+    private Boolean enCines;
+
+    private EstrenoDTO estreno;
 
     public Long getId() {
         return id;
@@ -30,12 +31,12 @@ public class ReviewDTO implements Serializable {
         this.id = id;
     }
 
-    public Integer getPuntuacion() {
-        return puntuacion;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setPuntuacion(Integer puntuacion) {
-        this.puntuacion = puntuacion;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
     public String getDescripcion() {
@@ -46,12 +47,20 @@ public class ReviewDTO implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public PeliculaDTO getPelicula() {
-        return pelicula;
+    public Boolean getEnCines() {
+        return enCines;
     }
 
-    public void setPelicula(PeliculaDTO pelicula) {
-        this.pelicula = pelicula;
+    public void setEnCines(Boolean enCines) {
+        this.enCines = enCines;
+    }
+
+    public EstrenoDTO getEstreno() {
+        return estreno;
+    }
+
+    public void setEstreno(EstrenoDTO estreno) {
+        this.estreno = estreno;
     }
 
     @Override
@@ -59,15 +68,15 @@ public class ReviewDTO implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof ReviewDTO)) {
+        if (!(o instanceof PeliculaDTO)) {
             return false;
         }
 
-        ReviewDTO reviewDTO = (ReviewDTO) o;
+        PeliculaDTO peliculaDTO = (PeliculaDTO) o;
         if (this.id == null) {
             return false;
         }
-        return Objects.equals(this.id, reviewDTO.id);
+        return Objects.equals(this.id, peliculaDTO.id);
     }
 
     @Override
@@ -78,11 +87,12 @@ public class ReviewDTO implements Serializable {
     // prettier-ignore
     @Override
     public String toString() {
-        return "ReviewDTO{" +
+        return "PeliculaDTO{" +
             "id=" + getId() +
-            ", puntuacion=" + getPuntuacion() +
+            ", titulo='" + getTitulo() + "'" +
             ", descripcion='" + getDescripcion() + "'" +
-            ", pelicula=" + getPelicula() +
+            ", enCines='" + getEnCines() + "'" +
+            ", estreno=" + getEstreno() +
             "}";
     }
 }

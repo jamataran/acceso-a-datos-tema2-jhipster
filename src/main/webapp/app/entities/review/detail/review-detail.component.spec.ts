@@ -1,8 +1,8 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {ActivatedRoute} from '@angular/router';
-import {of} from 'rxjs';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 
-import {ReviewDetailComponent} from './review-detail.component';
+import { ReviewDetailComponent } from './review-detail.component';
 
 describe('Component Tests', () => {
   describe('Review Management Detail Component', () => {

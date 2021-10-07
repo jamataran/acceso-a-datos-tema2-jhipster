@@ -2,28 +2,28 @@ package com.cev.ad.tema2.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.cev.ad.tema2.IntegrationTest;
+import com.cev.ad.tema2.domain.Estreno;
+import com.cev.ad.tema2.domain.Pelicula;
+import com.cev.ad.tema2.domain.Review;
+import com.cev.ad.tema2.repository.PeliculaRepository;
+import com.cev.ad.tema2.repository.search.PeliculaSearchRepository;
+import com.cev.ad.tema2.service.criteria.PeliculaCriteria;
+import com.cev.ad.tema2.service.dto.PeliculaDTO;
+import com.cev.ad.tema2.service.mapper.PeliculaMapper;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
-
 import javax.persistence.EntityManager;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -33,13 +33,6 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.cev.ad.tema2.IntegrationTest;
-import com.cev.ad.tema2.domain.Estreno;
-import com.cev.ad.tema2.domain.Pelicula;
-import com.cev.ad.tema2.domain.Review;
-import com.cev.ad.tema2.repository.PeliculaRepository;
-import com.cev.ad.tema2.repository.search.PeliculaSearchRepository;
 
 /**
  * Integration tests for the {@link PeliculaResource} REST controller.
@@ -68,6 +61,9 @@ class PeliculaResourceIT {
 
     @Autowired
     private PeliculaRepository peliculaRepository;
+
+    @Autowired
+    private PeliculaMapper peliculaMapper;
 
     /**
      * This repository is mocked in the com.cev.ad.tema2.repository.search test package.
@@ -137,8 +133,9 @@ class PeliculaResourceIT {
     void createPelicula() throws Exception {
         int databaseSizeBeforeCreate = peliculaRepository.findAll().size();
         // Create the Pelicula
+        PeliculaDTO peliculaDTO = peliculaMapper.toDto(pelicula);
         restPeliculaMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(pelicula)))
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(peliculaDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Pelicula in the database
@@ -161,12 +158,13 @@ class PeliculaResourceIT {
     void createPeliculaWithExistingId() throws Exception {
         // Create the Pelicula with an existing ID
         pelicula.setId(1L);
+        PeliculaDTO peliculaDTO = peliculaMapper.toDto(pelicula);
 
         int databaseSizeBeforeCreate = peliculaRepository.findAll().size();
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restPeliculaMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(pelicula)))
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(peliculaDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Pelicula in the database
@@ -197,13 +195,15 @@ class PeliculaResourceIT {
 
         // Update the Estreno with new association value
         updatedPelicula.setEstreno(estreno);
+        PeliculaDTO updatedPeliculaDTO = peliculaMapper.toDto(updatedPelicula);
+        assertThat(updatedPeliculaDTO).isNotNull();
 
         // Update the entity
         restPeliculaMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, updatedPelicula.getId())
+                put(ENTITY_API_URL_ID, updatedPeliculaDTO.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(updatedPelicula))
+                    .content(TestUtil.convertObjectToJsonBytes(updatedPeliculaDTO))
             )
             .andExpect(status().isOk());
 
@@ -229,9 +229,10 @@ class PeliculaResourceIT {
         pelicula.setTitulo(null);
 
         // Create the Pelicula, which fails.
+        PeliculaDTO peliculaDTO = peliculaMapper.toDto(pelicula);
 
         restPeliculaMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(pelicula)))
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(peliculaDTO)))
             .andExpect(status().isBadRequest());
 
         List<Pelicula> peliculaList = peliculaRepository.findAll();
@@ -246,9 +247,10 @@ class PeliculaResourceIT {
         pelicula.setDescripcion(null);
 
         // Create the Pelicula, which fails.
+        PeliculaDTO peliculaDTO = peliculaMapper.toDto(pelicula);
 
         restPeliculaMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(pelicula)))
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(peliculaDTO)))
             .andExpect(status().isBadRequest());
 
         List<Pelicula> peliculaList = peliculaRepository.findAll();
@@ -616,12 +618,13 @@ class PeliculaResourceIT {
         // Disconnect from session so that the updates on updatedPelicula are not directly saved in db
         em.detach(updatedPelicula);
         updatedPelicula.titulo(UPDATED_TITULO).descripcion(UPDATED_DESCRIPCION).enCines(UPDATED_EN_CINES);
+        PeliculaDTO peliculaDTO = peliculaMapper.toDto(updatedPelicula);
 
         restPeliculaMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, updatedPelicula.getId())
+                put(ENTITY_API_URL_ID, peliculaDTO.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(updatedPelicula))
+                    .content(TestUtil.convertObjectToJsonBytes(peliculaDTO))
             )
             .andExpect(status().isOk());
 
@@ -643,12 +646,15 @@ class PeliculaResourceIT {
         int databaseSizeBeforeUpdate = peliculaRepository.findAll().size();
         pelicula.setId(count.incrementAndGet());
 
+        // Create the Pelicula
+        PeliculaDTO peliculaDTO = peliculaMapper.toDto(pelicula);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restPeliculaMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, pelicula.getId())
+                put(ENTITY_API_URL_ID, peliculaDTO.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(pelicula))
+                    .content(TestUtil.convertObjectToJsonBytes(peliculaDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -666,12 +672,15 @@ class PeliculaResourceIT {
         int databaseSizeBeforeUpdate = peliculaRepository.findAll().size();
         pelicula.setId(count.incrementAndGet());
 
+        // Create the Pelicula
+        PeliculaDTO peliculaDTO = peliculaMapper.toDto(pelicula);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restPeliculaMockMvc
             .perform(
                 put(ENTITY_API_URL_ID, count.incrementAndGet())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(pelicula))
+                    .content(TestUtil.convertObjectToJsonBytes(peliculaDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -689,9 +698,12 @@ class PeliculaResourceIT {
         int databaseSizeBeforeUpdate = peliculaRepository.findAll().size();
         pelicula.setId(count.incrementAndGet());
 
+        // Create the Pelicula
+        PeliculaDTO peliculaDTO = peliculaMapper.toDto(pelicula);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restPeliculaMockMvc
-            .perform(put(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(pelicula)))
+            .perform(put(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(peliculaDTO)))
             .andExpect(status().isMethodNotAllowed());
 
         // Validate the Pelicula in the database
@@ -768,12 +780,15 @@ class PeliculaResourceIT {
         int databaseSizeBeforeUpdate = peliculaRepository.findAll().size();
         pelicula.setId(count.incrementAndGet());
 
+        // Create the Pelicula
+        PeliculaDTO peliculaDTO = peliculaMapper.toDto(pelicula);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restPeliculaMockMvc
             .perform(
-                patch(ENTITY_API_URL_ID, pelicula.getId())
+                patch(ENTITY_API_URL_ID, peliculaDTO.getId())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(pelicula))
+                    .content(TestUtil.convertObjectToJsonBytes(peliculaDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -791,12 +806,15 @@ class PeliculaResourceIT {
         int databaseSizeBeforeUpdate = peliculaRepository.findAll().size();
         pelicula.setId(count.incrementAndGet());
 
+        // Create the Pelicula
+        PeliculaDTO peliculaDTO = peliculaMapper.toDto(pelicula);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restPeliculaMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, count.incrementAndGet())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(pelicula))
+                    .content(TestUtil.convertObjectToJsonBytes(peliculaDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -814,9 +832,14 @@ class PeliculaResourceIT {
         int databaseSizeBeforeUpdate = peliculaRepository.findAll().size();
         pelicula.setId(count.incrementAndGet());
 
+        // Create the Pelicula
+        PeliculaDTO peliculaDTO = peliculaMapper.toDto(pelicula);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restPeliculaMockMvc
-            .perform(patch(ENTITY_API_URL).contentType("application/merge-patch+json").content(TestUtil.convertObjectToJsonBytes(pelicula)))
+            .perform(
+                patch(ENTITY_API_URL).contentType("application/merge-patch+json").content(TestUtil.convertObjectToJsonBytes(peliculaDTO))
+            )
             .andExpect(status().isMethodNotAllowed());
 
         // Validate the Pelicula in the database

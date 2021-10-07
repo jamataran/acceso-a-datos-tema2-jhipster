@@ -1,11 +1,11 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
-import {UserRouteAccessService} from 'app/core/auth/user-route-access.service';
-import {CategoriaComponent} from '../list/categoria.component';
-import {CategoriaDetailComponent} from '../detail/categoria-detail.component';
-import {CategoriaUpdateComponent} from '../update/categoria-update.component';
-import {CategoriaRoutingResolveService} from './categoria-routing-resolve.service';
+import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
+import { CategoriaComponent } from '../list/categoria.component';
+import { CategoriaDetailComponent } from '../detail/categoria-detail.component';
+import { CategoriaUpdateComponent } from '../update/categoria-update.component';
+import { CategoriaRoutingResolveService } from './categoria-routing-resolve.service';
 
 const categoriaRoute: Routes = [
   {

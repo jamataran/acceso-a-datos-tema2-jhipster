@@ -1,40 +1,31 @@
 package com.cev.ad.tema2.web.rest;
 
+import static org.elasticsearch.index.query.QueryBuilders.*;
+
+import com.cev.ad.tema2.repository.PeliculaRepository;
+import com.cev.ad.tema2.service.PeliculaQueryService;
+import com.cev.ad.tema2.service.PeliculaService;
+import com.cev.ad.tema2.service.criteria.PeliculaCriteria;
+import com.cev.ad.tema2.service.dto.PeliculaDTO;
+import com.cev.ad.tema2.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-
+import java.util.stream.StreamSupport;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import com.cev.ad.tema2.domain.Pelicula;
-import com.cev.ad.tema2.repository.PeliculaRepository;
-import com.cev.ad.tema2.service.PeliculaQueryService;
-import com.cev.ad.tema2.service.PeliculaService;
-import com.cev.ad.tema2.service.criteria.PeliculaCriteria;
-import com.cev.ad.tema2.web.rest.errors.BadRequestAlertException;
-
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
@@ -72,20 +63,20 @@ public class PeliculaResource {
     /**
      * {@code POST  /peliculas} : Create a new pelicula.
      *
-     * @param pelicula the pelicula to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new pelicula, or with status {@code 400 (Bad Request)} if the pelicula has already an ID.
+     * @param peliculaDTO the peliculaDTO to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new peliculaDTO, or with status {@code 400 (Bad Request)} if the pelicula has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/peliculas")
-    public ResponseEntity<Pelicula> createPelicula(@Valid @RequestBody Pelicula pelicula) throws URISyntaxException {
-        log.debug("REST request to save Pelicula : {}", pelicula);
-        if (pelicula.getId() != null) {
+    public ResponseEntity<PeliculaDTO> createPelicula(@Valid @RequestBody PeliculaDTO peliculaDTO) throws URISyntaxException {
+        log.debug("REST request to save Pelicula : {}", peliculaDTO);
+        if (peliculaDTO.getId() != null) {
             throw new BadRequestAlertException("A new pelicula cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        if (Objects.isNull(pelicula.getEstreno())) {
+        if (Objects.isNull(peliculaDTO.getEstreno())) {
             throw new BadRequestAlertException("Invalid association value provided", ENTITY_NAME, "null");
         }
-        Pelicula result = peliculaService.save(pelicula);
+        PeliculaDTO result = peliculaService.save(peliculaDTO);
         return ResponseEntity
             .created(new URI("/api/peliculas/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
@@ -95,23 +86,23 @@ public class PeliculaResource {
     /**
      * {@code PUT  /peliculas/:id} : Updates an existing pelicula.
      *
-     * @param id the id of the pelicula to save.
-     * @param pelicula the pelicula to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated pelicula,
-     * or with status {@code 400 (Bad Request)} if the pelicula is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the pelicula couldn't be updated.
+     * @param id the id of the peliculaDTO to save.
+     * @param peliculaDTO the peliculaDTO to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated peliculaDTO,
+     * or with status {@code 400 (Bad Request)} if the peliculaDTO is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the peliculaDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/peliculas/{id}")
-    public ResponseEntity<Pelicula> updatePelicula(
+    public ResponseEntity<PeliculaDTO> updatePelicula(
         @PathVariable(value = "id", required = false) final Long id,
-        @Valid @RequestBody Pelicula pelicula
+        @Valid @RequestBody PeliculaDTO peliculaDTO
     ) throws URISyntaxException {
-        log.debug("REST request to update Pelicula : {}, {}", id, pelicula);
-        if (pelicula.getId() == null) {
+        log.debug("REST request to update Pelicula : {}, {}", id, peliculaDTO);
+        if (peliculaDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, pelicula.getId())) {
+        if (!Objects.equals(id, peliculaDTO.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
@@ -119,34 +110,34 @@ public class PeliculaResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Pelicula result = peliculaService.save(pelicula);
+        PeliculaDTO result = peliculaService.save(peliculaDTO);
         return ResponseEntity
             .ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, pelicula.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, peliculaDTO.getId().toString()))
             .body(result);
     }
 
     /**
      * {@code PATCH  /peliculas/:id} : Partial updates given fields of an existing pelicula, field will ignore if it is null
      *
-     * @param id the id of the pelicula to save.
-     * @param pelicula the pelicula to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated pelicula,
-     * or with status {@code 400 (Bad Request)} if the pelicula is not valid,
-     * or with status {@code 404 (Not Found)} if the pelicula is not found,
-     * or with status {@code 500 (Internal Server Error)} if the pelicula couldn't be updated.
+     * @param id the id of the peliculaDTO to save.
+     * @param peliculaDTO the peliculaDTO to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated peliculaDTO,
+     * or with status {@code 400 (Bad Request)} if the peliculaDTO is not valid,
+     * or with status {@code 404 (Not Found)} if the peliculaDTO is not found,
+     * or with status {@code 500 (Internal Server Error)} if the peliculaDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/peliculas/{id}", consumes = { "application/json", "application/merge-patch+json" })
-    public ResponseEntity<Pelicula> partialUpdatePelicula(
+    public ResponseEntity<PeliculaDTO> partialUpdatePelicula(
         @PathVariable(value = "id", required = false) final Long id,
-        @NotNull @RequestBody Pelicula pelicula
+        @NotNull @RequestBody PeliculaDTO peliculaDTO
     ) throws URISyntaxException {
-        log.debug("REST request to partial update Pelicula partially : {}, {}", id, pelicula);
-        if (pelicula.getId() == null) {
+        log.debug("REST request to partial update Pelicula partially : {}, {}", id, peliculaDTO);
+        if (peliculaDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, pelicula.getId())) {
+        if (!Objects.equals(id, peliculaDTO.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
@@ -154,11 +145,11 @@ public class PeliculaResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<Pelicula> result = peliculaService.partialUpdate(pelicula);
+        Optional<PeliculaDTO> result = peliculaService.partialUpdate(peliculaDTO);
 
         return ResponseUtil.wrapOrNotFound(
             result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, pelicula.getId().toString())
+            HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, peliculaDTO.getId().toString())
         );
     }
 
@@ -170,9 +161,9 @@ public class PeliculaResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of peliculas in body.
      */
     @GetMapping("/peliculas")
-    public ResponseEntity<List<Pelicula>> getAllPeliculas(PeliculaCriteria criteria, Pageable pageable) {
+    public ResponseEntity<List<PeliculaDTO>> getAllPeliculas(PeliculaCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Peliculas by criteria: {}", criteria);
-        Page<Pelicula> page = peliculaQueryService.findByCriteria(criteria, pageable);
+        Page<PeliculaDTO> page = peliculaQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -192,20 +183,20 @@ public class PeliculaResource {
     /**
      * {@code GET  /peliculas/:id} : get the "id" pelicula.
      *
-     * @param id the id of the pelicula to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the pelicula, or with status {@code 404 (Not Found)}.
+     * @param id the id of the peliculaDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the peliculaDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/peliculas/{id}")
-    public ResponseEntity<Pelicula> getPelicula(@PathVariable Long id) {
+    public ResponseEntity<PeliculaDTO> getPelicula(@PathVariable Long id) {
         log.debug("REST request to get Pelicula : {}", id);
-        Optional<Pelicula> pelicula = peliculaService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(pelicula);
+        Optional<PeliculaDTO> peliculaDTO = peliculaService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(peliculaDTO);
     }
 
     /**
      * {@code DELETE  /peliculas/:id} : delete the "id" pelicula.
      *
-     * @param id the id of the pelicula to delete.
+     * @param id the id of the peliculaDTO to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/peliculas/{id}")
@@ -227,9 +218,9 @@ public class PeliculaResource {
      * @return the result of the search.
      */
     @GetMapping("/_search/peliculas")
-    public ResponseEntity<List<Pelicula>> searchPeliculas(@RequestParam String query, Pageable pageable) {
+    public ResponseEntity<List<PeliculaDTO>> searchPeliculas(@RequestParam String query, Pageable pageable) {
         log.debug("REST request to search for a page of Peliculas for query {}", query);
-        Page<Pelicula> page = peliculaService.search(query, pageable);
+        Page<PeliculaDTO> page = peliculaService.search(query, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
-import {HttpResponse} from '@angular/common/http';
-import {ActivatedRouteSnapshot, Resolve, Router} from '@angular/router';
-import {EMPTY, Observable, of} from 'rxjs';
-import {mergeMap} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { HttpResponse } from '@angular/common/http';
+import { Resolve, ActivatedRouteSnapshot, Router } from '@angular/router';
+import { Observable, of, EMPTY } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
 
-import {Estreno, IEstreno} from '../estreno.model';
-import {EstrenoService} from '../service/estreno.service';
+import { IEstreno, Estreno } from '../estreno.model';
+import { EstrenoService } from '../service/estreno.service';
 
 @Injectable({ providedIn: 'root' })
 export class EstrenoRoutingResolveService implements Resolve<IEstreno> {

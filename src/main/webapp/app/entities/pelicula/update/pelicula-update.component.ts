@@ -1,14 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpResponse} from '@angular/common/http';
-import {FormBuilder, Validators} from '@angular/forms';
-import {ActivatedRoute} from '@angular/router';
-import {Observable} from 'rxjs';
-import {finalize, map} from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import { HttpResponse } from '@angular/common/http';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { finalize, map } from 'rxjs/operators';
 
-import {IPelicula, Pelicula} from '../pelicula.model';
-import {PeliculaService} from '../service/pelicula.service';
-import {IEstreno} from 'app/entities/estreno/estreno.model';
-import {EstrenoService} from 'app/entities/estreno/service/estreno.service';
+import { IPelicula, Pelicula } from '../pelicula.model';
+import { PeliculaService } from '../service/pelicula.service';
+import { IEstreno } from 'app/entities/estreno/estreno.model';
+import { EstrenoService } from 'app/entities/estreno/service/estreno.service';
 
 @Component({
   selector: 'jhi-pelicula-update',

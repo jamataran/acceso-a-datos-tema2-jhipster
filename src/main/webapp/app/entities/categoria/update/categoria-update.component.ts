@@ -1,15 +1,15 @@
-import {Component, ElementRef, OnInit} from '@angular/core';
-import {HttpResponse} from '@angular/common/http';
-import {FormBuilder, Validators} from '@angular/forms';
-import {ActivatedRoute} from '@angular/router';
-import {Observable} from 'rxjs';
-import {finalize} from 'rxjs/operators';
+import { Component, OnInit, ElementRef } from '@angular/core';
+import { HttpResponse } from '@angular/common/http';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 
-import {Categoria, ICategoria} from '../categoria.model';
-import {CategoriaService} from '../service/categoria.service';
-import {AlertError} from 'app/shared/alert/alert-error.model';
-import {EventManager, EventWithContent} from 'app/core/util/event-manager.service';
-import {DataUtils, FileLoadError} from 'app/core/util/data-util.service';
+import { ICategoria, Categoria } from '../categoria.model';
+import { CategoriaService } from '../service/categoria.service';
+import { AlertError } from 'app/shared/alert/alert-error.model';
+import { EventManager, EventWithContent } from 'app/core/util/event-manager.service';
+import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
 
 @Component({
   selector: 'jhi-categoria-update',

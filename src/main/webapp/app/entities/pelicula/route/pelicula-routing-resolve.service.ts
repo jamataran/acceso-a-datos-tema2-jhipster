@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
-import {HttpResponse} from '@angular/common/http';
-import {ActivatedRouteSnapshot, Resolve, Router} from '@angular/router';
-import {EMPTY, Observable, of} from 'rxjs';
-import {mergeMap} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { HttpResponse } from '@angular/common/http';
+import { Resolve, ActivatedRouteSnapshot, Router } from '@angular/router';
+import { Observable, of, EMPTY } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
 
-import {IPelicula, Pelicula} from '../pelicula.model';
-import {PeliculaService} from '../service/pelicula.service';
+import { IPelicula, Pelicula } from '../pelicula.model';
+import { PeliculaService } from '../service/pelicula.service';
 
 @Injectable({ providedIn: 'root' })
 export class PeliculaRoutingResolveService implements Resolve<IPelicula> {

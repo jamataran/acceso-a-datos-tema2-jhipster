@@ -1,9 +1,14 @@
 package com.cev.ad.tema2.service;
 
+import com.cev.ad.tema2.domain.*; // for static metamodels
+import com.cev.ad.tema2.domain.Pelicula;
+import com.cev.ad.tema2.repository.PeliculaRepository;
+import com.cev.ad.tema2.repository.search.PeliculaSearchRepository;
+import com.cev.ad.tema2.service.criteria.PeliculaCriteria;
+import com.cev.ad.tema2.service.dto.PeliculaDTO;
+import com.cev.ad.tema2.service.mapper.PeliculaMapper;
 import java.util.List;
-
 import javax.persistence.criteria.JoinType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -11,20 +16,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.cev.ad.tema2.domain.Pelicula;
-import com.cev.ad.tema2.domain.Pelicula_;
-import com.cev.ad.tema2.repository.PeliculaRepository;
-import com.cev.ad.tema2.repository.search.PeliculaSearchRepository;
-import com.cev.ad.tema2.service.criteria.PeliculaCriteria;
-
 import tech.jhipster.service.QueryService;
 
 /**
  * Service for executing complex queries for {@link Pelicula} entities in the database.
  * The main input is a {@link PeliculaCriteria} which gets converted to {@link Specification},
  * in a way that all the filters must apply.
- * It returns a {@link List} of {@link Pelicula} or a {@link Page} of {@link Pelicula} which fulfills the criteria.
+ * It returns a {@link List} of {@link PeliculaDTO} or a {@link Page} of {@link PeliculaDTO} which fulfills the criteria.
  */
 @Service
 @Transactional(readOnly = true)
@@ -34,36 +32,43 @@ public class PeliculaQueryService extends QueryService<Pelicula> {
 
     private final PeliculaRepository peliculaRepository;
 
+    private final PeliculaMapper peliculaMapper;
+
     private final PeliculaSearchRepository peliculaSearchRepository;
 
-    public PeliculaQueryService(PeliculaRepository peliculaRepository, PeliculaSearchRepository peliculaSearchRepository) {
+    public PeliculaQueryService(
+        PeliculaRepository peliculaRepository,
+        PeliculaMapper peliculaMapper,
+        PeliculaSearchRepository peliculaSearchRepository
+    ) {
         this.peliculaRepository = peliculaRepository;
+        this.peliculaMapper = peliculaMapper;
         this.peliculaSearchRepository = peliculaSearchRepository;
     }
 
     /**
-     * Return a {@link List} of {@link Pelicula} which matches the criteria from the database.
+     * Return a {@link List} of {@link PeliculaDTO} which matches the criteria from the database.
      * @param criteria The object which holds all the filters, which the entities should match.
      * @return the matching entities.
      */
     @Transactional(readOnly = true)
-    public List<Pelicula> findByCriteria(PeliculaCriteria criteria) {
+    public List<PeliculaDTO> findByCriteria(PeliculaCriteria criteria) {
         log.debug("find by criteria : {}", criteria);
         final Specification<Pelicula> specification = createSpecification(criteria);
-        return peliculaRepository.findAll(specification);
+        return peliculaMapper.toDto(peliculaRepository.findAll(specification));
     }
 
     /**
-     * Return a {@link Page} of {@link Pelicula} which matches the criteria from the database.
+     * Return a {@link Page} of {@link PeliculaDTO} which matches the criteria from the database.
      * @param criteria The object which holds all the filters, which the entities should match.
      * @param page The page, which should be returned.
      * @return the matching entities.
      */
     @Transactional(readOnly = true)
-    public Page<Pelicula> findByCriteria(PeliculaCriteria criteria, Pageable page) {
+    public Page<PeliculaDTO> findByCriteria(PeliculaCriteria criteria, Pageable page) {
         log.debug("find by criteria : {}, page: {}", criteria, page);
         final Specification<Pelicula> specification = createSpecification(criteria);
-        return peliculaRepository.findAll(specification, page);
+        return peliculaRepository.findAll(specification, page).map(peliculaMapper::toDto);
     }
 
     /**

@@ -1,7 +1,14 @@
 package com.cev.ad.tema2.service;
 
+import com.cev.ad.tema2.domain.*; // for static metamodels
+import com.cev.ad.tema2.domain.Estreno;
+import com.cev.ad.tema2.repository.EstrenoRepository;
+import com.cev.ad.tema2.repository.search.EstrenoSearchRepository;
+import com.cev.ad.tema2.service.criteria.EstrenoCriteria;
+import com.cev.ad.tema2.service.dto.EstrenoDTO;
+import com.cev.ad.tema2.service.mapper.EstrenoMapper;
 import java.util.List;
-
+import javax.persistence.criteria.JoinType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -9,14 +16,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.cev.ad.tema2.domain.Estreno;
-import com.cev.ad.tema2.repository.EstrenoRepository;
-import com.cev.ad.tema2.repository.search.EstrenoSearchRepository;
-import com.cev.ad.tema2.service.criteria.EstrenoCriteria;
-import com.cev.ad.tema2.service.dto.EstrenoDTO;
-import com.cev.ad.tema2.service.mapper.EstrenoMapper;
-
 import tech.jhipster.service.QueryService;
 
 /**

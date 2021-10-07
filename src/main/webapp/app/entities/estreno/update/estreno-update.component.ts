@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpResponse} from '@angular/common/http';
-import {FormBuilder} from '@angular/forms';
-import {ActivatedRoute} from '@angular/router';
-import {Observable} from 'rxjs';
-import {finalize} from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import { HttpResponse } from '@angular/common/http';
+import { FormBuilder } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 
-import {Estreno, IEstreno} from '../estreno.model';
-import {EstrenoService} from '../service/estreno.service';
+import { IEstreno, Estreno } from '../estreno.model';
+import { EstrenoService } from '../service/estreno.service';
 
 @Component({
   selector: 'jhi-estreno-update',

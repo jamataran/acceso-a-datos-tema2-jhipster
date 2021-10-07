@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpResponse} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
-import {isPresent} from 'app/core/util/operators';
-import {ApplicationConfigService} from 'app/core/config/application-config.service';
-import {createRequestOption} from 'app/core/request/request-util';
-import {SearchWithPagination} from 'app/core/request/request.model';
-import {getPeliculaIdentifier, IPelicula} from '../pelicula.model';
+import { isPresent } from 'app/core/util/operators';
+import { ApplicationConfigService } from 'app/core/config/application-config.service';
+import { createRequestOption } from 'app/core/request/request-util';
+import { SearchWithPagination } from 'app/core/request/request.model';
+import { IPelicula, getPeliculaIdentifier } from '../pelicula.model';
 
 export type EntityResponseType = HttpResponse<IPelicula>;
 export type EntityArrayResponseType = HttpResponse<IPelicula[]>;

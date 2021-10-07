@@ -1,12 +1,8 @@
 package com.cev.ad.tema2.service.mapper;
 
-import org.mapstruct.BeanMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Named;
-
-import com.cev.ad.tema2.domain.Estreno;
+import com.cev.ad.tema2.domain.*;
 import com.cev.ad.tema2.service.dto.EstrenoDTO;
+import org.mapstruct.*;
 
 /**
  * Mapper for the entity {@link Estreno} and its DTO {@link EstrenoDTO}.

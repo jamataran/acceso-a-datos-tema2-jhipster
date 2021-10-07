@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
-import {ICategoria} from '../categoria.model';
-import {DataUtils} from 'app/core/util/data-util.service';
+import { ICategoria } from '../categoria.model';
+import { DataUtils } from 'app/core/util/data-util.service';
 
 @Component({
   selector: 'jhi-categoria-detail',

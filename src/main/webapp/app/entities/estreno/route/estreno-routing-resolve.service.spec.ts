@@ -1,15 +1,15 @@
 jest.mock('@angular/router');
 
-import {TestBed} from '@angular/core/testing';
-import {HttpResponse} from '@angular/common/http';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {ActivatedRouteSnapshot, Router} from '@angular/router';
-import {of} from 'rxjs';
+import { TestBed } from '@angular/core/testing';
+import { HttpResponse } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ActivatedRouteSnapshot, Router } from '@angular/router';
+import { of } from 'rxjs';
 
-import {Estreno, IEstreno} from '../estreno.model';
-import {EstrenoService} from '../service/estreno.service';
+import { IEstreno, Estreno } from '../estreno.model';
+import { EstrenoService } from '../service/estreno.service';
 
-import {EstrenoRoutingResolveService} from './estreno-routing-resolve.service';
+import { EstrenoRoutingResolveService } from './estreno-routing-resolve.service';
 
 describe('Service Tests', () => {
   describe('Estreno routing resolve service', () => {

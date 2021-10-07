@@ -1,7 +1,6 @@
 package com.cev.ad.tema2.service.mapper;
 
 import java.util.List;
-
 import org.mapstruct.BeanMapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;

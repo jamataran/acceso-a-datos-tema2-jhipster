@@ -1,11 +1,9 @@
 package com.cev.ad.tema2.service;
 
+import com.cev.ad.tema2.service.dto.EstrenoDTO;
 import java.util.Optional;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
-import com.cev.ad.tema2.service.dto.EstrenoDTO;
 
 /**
  * Service Interface for managing {@link com.cev.ad.tema2.domain.Estreno}.

@@ -1,10 +1,8 @@
 package com.cev.ad.tema2.service.mapper;
 
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-
-import com.cev.ad.tema2.domain.Review;
+import com.cev.ad.tema2.domain.*;
 import com.cev.ad.tema2.service.dto.ReviewDTO;
+import org.mapstruct.*;
 
 /**
  * Mapper for the entity {@link Review} and its DTO {@link ReviewDTO}.

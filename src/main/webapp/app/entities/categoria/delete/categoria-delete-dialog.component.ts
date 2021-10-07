@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import { Component } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-import {ICategoria} from '../categoria.model';
-import {CategoriaService} from '../service/categoria.service';
+import { ICategoria } from '../categoria.model';
+import { CategoriaService } from '../service/categoria.service';
 
 @Component({
   templateUrl: './categoria-delete-dialog.component.html',

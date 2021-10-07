@@ -1,16 +1,16 @@
 jest.mock('@angular/router');
 
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {HttpResponse} from '@angular/common/http';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {FormBuilder} from '@angular/forms';
-import {ActivatedRoute} from '@angular/router';
-import {of, Subject} from 'rxjs';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpResponse } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { FormBuilder } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { of, Subject } from 'rxjs';
 
-import {CategoriaService} from '../service/categoria.service';
-import {Categoria, ICategoria} from '../categoria.model';
+import { CategoriaService } from '../service/categoria.service';
+import { ICategoria, Categoria } from '../categoria.model';
 
-import {CategoriaUpdateComponent} from './categoria-update.component';
+import { CategoriaUpdateComponent } from './categoria-update.component';
 
 describe('Component Tests', () => {
   describe('Categoria Management Update Component', () => {

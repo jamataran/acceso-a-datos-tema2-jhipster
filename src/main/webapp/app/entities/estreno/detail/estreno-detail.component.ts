@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
-import {IEstreno} from '../estreno.model';
+import { IEstreno } from '../estreno.model';
 
 @Component({
   selector: 'jhi-estreno-detail',

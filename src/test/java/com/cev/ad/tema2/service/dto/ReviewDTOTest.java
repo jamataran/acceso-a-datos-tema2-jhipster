@@ -2,9 +2,8 @@ package com.cev.ad.tema2.service.dto;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.jupiter.api.Test;
-
 import com.cev.ad.tema2.web.rest.TestUtil;
+import org.junit.jupiter.api.Test;
 
 class ReviewDTOTest {
 

@@ -1,15 +1,15 @@
 jest.mock('@angular/router');
 
-import {TestBed} from '@angular/core/testing';
-import {HttpResponse} from '@angular/common/http';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {ActivatedRouteSnapshot, Router} from '@angular/router';
-import {of} from 'rxjs';
+import { TestBed } from '@angular/core/testing';
+import { HttpResponse } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ActivatedRouteSnapshot, Router } from '@angular/router';
+import { of } from 'rxjs';
 
-import {Categoria, ICategoria} from '../categoria.model';
-import {CategoriaService} from '../service/categoria.service';
+import { ICategoria, Categoria } from '../categoria.model';
+import { CategoriaService } from '../service/categoria.service';
 
-import {CategoriaRoutingResolveService} from './categoria-routing-resolve.service';
+import { CategoriaRoutingResolveService } from './categoria-routing-resolve.service';
 
 describe('Service Tests', () => {
   describe('Categoria routing resolve service', () => {

@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import { Component } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-import {IEstreno} from '../estreno.model';
-import {EstrenoService} from '../service/estreno.service';
+import { IEstreno } from '../estreno.model';
+import { EstrenoService } from '../service/estreno.service';
 
 @Component({
   templateUrl: './estreno-delete-dialog.component.html',

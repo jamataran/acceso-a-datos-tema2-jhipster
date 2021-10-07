@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
-import {HttpResponse} from '@angular/common/http';
-import {ActivatedRouteSnapshot, Resolve, Router} from '@angular/router';
-import {EMPTY, Observable, of} from 'rxjs';
-import {mergeMap} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { HttpResponse } from '@angular/common/http';
+import { Resolve, ActivatedRouteSnapshot, Router } from '@angular/router';
+import { Observable, of, EMPTY } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
 
-import {IReview, Review} from '../review.model';
-import {ReviewService} from '../service/review.service';
+import { IReview, Review } from '../review.model';
+import { ReviewService } from '../service/review.service';
 
 @Injectable({ providedIn: 'root' })
 export class ReviewRoutingResolveService implements Resolve<IReview> {

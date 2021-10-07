@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import { Component } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-import {IReview} from '../review.model';
-import {ReviewService} from '../service/review.service';
+import { IReview } from '../review.model';
+import { ReviewService } from '../service/review.service';
 
 @Component({
   templateUrl: './review-delete-dialog.component.html',

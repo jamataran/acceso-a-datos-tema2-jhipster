@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
-import {IPelicula} from '../pelicula.model';
+import { IPelicula } from '../pelicula.model';
 
 @Component({
   selector: 'jhi-pelicula-detail',

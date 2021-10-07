@@ -1,11 +1,11 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
-import {UserRouteAccessService} from 'app/core/auth/user-route-access.service';
-import {ReviewComponent} from '../list/review.component';
-import {ReviewDetailComponent} from '../detail/review-detail.component';
-import {ReviewUpdateComponent} from '../update/review-update.component';
-import {ReviewRoutingResolveService} from './review-routing-resolve.service';
+import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
+import { ReviewComponent } from '../list/review.component';
+import { ReviewDetailComponent } from '../detail/review-detail.component';
+import { ReviewUpdateComponent } from '../update/review-update.component';
+import { ReviewRoutingResolveService } from './review-routing-resolve.service';
 
 const reviewRoute: Routes = [
   {

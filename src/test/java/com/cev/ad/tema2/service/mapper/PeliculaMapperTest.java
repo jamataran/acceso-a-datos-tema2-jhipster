@@ -5,12 +5,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class EstrenoMapperTest {
+class PeliculaMapperTest {
 
-    private EstrenoMapper estrenoMapper;
+    private PeliculaMapper peliculaMapper;
 
     @BeforeEach
     public void setUp() {
-        estrenoMapper = new EstrenoMapperImpl();
+        peliculaMapper = new PeliculaMapperImpl();
     }
 }

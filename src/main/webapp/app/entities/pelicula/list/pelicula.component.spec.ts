@@ -1,14 +1,14 @@
 jest.mock('@angular/router');
 
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {HttpHeaders, HttpResponse} from '@angular/common/http';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {ActivatedRoute} from '@angular/router';
-import {of} from 'rxjs';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 
-import {PeliculaService} from '../service/pelicula.service';
+import { PeliculaService } from '../service/pelicula.service';
 
-import {PeliculaComponent} from './pelicula.component';
+import { PeliculaComponent } from './pelicula.component';
 
 describe('Component Tests', () => {
   describe('Pelicula Management Component', () => {

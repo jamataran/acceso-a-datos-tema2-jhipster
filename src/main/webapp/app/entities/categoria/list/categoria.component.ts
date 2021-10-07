@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpResponse} from '@angular/common/http';
-import {ActivatedRoute} from '@angular/router';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit } from '@angular/core';
+import { HttpResponse } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import {ICategoria} from '../categoria.model';
-import {CategoriaService} from '../service/categoria.service';
-import {CategoriaDeleteDialogComponent} from '../delete/categoria-delete-dialog.component';
-import {DataUtils} from 'app/core/util/data-util.service';
+import { ICategoria } from '../categoria.model';
+import { CategoriaService } from '../service/categoria.service';
+import { CategoriaDeleteDialogComponent } from '../delete/categoria-delete-dialog.component';
+import { DataUtils } from 'app/core/util/data-util.service';
 
 @Component({
   selector: 'jhi-categoria',

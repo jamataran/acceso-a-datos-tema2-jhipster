@@ -1,9 +1,9 @@
-import {TestBed} from '@angular/core/testing';
-import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
-import {IPelicula, Pelicula} from '../pelicula.model';
+import { IPelicula, Pelicula } from '../pelicula.model';
 
-import {PeliculaService} from './pelicula.service';
+import { PeliculaService } from './pelicula.service';
 
 describe('Service Tests', () => {
   describe('Pelicula Service', () => {

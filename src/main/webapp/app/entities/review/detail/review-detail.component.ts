@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
-import {IReview} from '../review.model';
+import { IReview } from '../review.model';
 
 @Component({
   selector: 'jhi-review-detail',

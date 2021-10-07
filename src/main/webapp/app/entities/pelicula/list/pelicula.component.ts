@@ -1,14 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpHeaders, HttpResponse} from '@angular/common/http';
-import {ActivatedRoute} from '@angular/router';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit } from '@angular/core';
+import { HttpHeaders, HttpResponse } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import {IPelicula} from '../pelicula.model';
+import { IPelicula } from '../pelicula.model';
 
-import {ASC, DESC, ITEMS_PER_PAGE} from 'app/config/pagination.constants';
-import {PeliculaService} from '../service/pelicula.service';
-import {PeliculaDeleteDialogComponent} from '../delete/pelicula-delete-dialog.component';
-import {ParseLinks} from 'app/core/util/parse-links.service';
+import { ASC, DESC, ITEMS_PER_PAGE } from 'app/config/pagination.constants';
+import { PeliculaService } from '../service/pelicula.service';
+import { PeliculaDeleteDialogComponent } from '../delete/pelicula-delete-dialog.component';
+import { ParseLinks } from 'app/core/util/parse-links.service';
 
 @Component({
   selector: 'jhi-pelicula',

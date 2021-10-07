@@ -1,5 +1,5 @@
-import {IEstreno} from 'app/entities/estreno/estreno.model';
-import {IReview} from 'app/entities/review/review.model';
+import { IEstreno } from 'app/entities/estreno/estreno.model';
+import { IReview } from 'app/entities/review/review.model';
 
 export interface IPelicula {
   id?: number;

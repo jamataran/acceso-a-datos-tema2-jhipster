@@ -1,19 +1,21 @@
 package com.cev.ad.tema2.service.impl;
 
-import java.util.Optional;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 import com.cev.ad.tema2.domain.Pelicula;
 import com.cev.ad.tema2.repository.EstrenoRepository;
 import com.cev.ad.tema2.repository.PeliculaRepository;
 import com.cev.ad.tema2.repository.search.PeliculaSearchRepository;
 import com.cev.ad.tema2.service.PeliculaService;
+import com.cev.ad.tema2.service.dto.PeliculaDTO;
+import com.cev.ad.tema2.service.mapper.PeliculaMapper;
+import java.util.Optional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Service Implementation for managing {@link Pelicula}.
@@ -26,46 +28,44 @@ public class PeliculaServiceImpl implements PeliculaService {
 
     private final PeliculaRepository peliculaRepository;
 
+    private final PeliculaMapper peliculaMapper;
+
     private final PeliculaSearchRepository peliculaSearchRepository;
 
     private final EstrenoRepository estrenoRepository;
 
     public PeliculaServiceImpl(
         PeliculaRepository peliculaRepository,
+        PeliculaMapper peliculaMapper,
         PeliculaSearchRepository peliculaSearchRepository,
         EstrenoRepository estrenoRepository
     ) {
         this.peliculaRepository = peliculaRepository;
+        this.peliculaMapper = peliculaMapper;
         this.peliculaSearchRepository = peliculaSearchRepository;
         this.estrenoRepository = estrenoRepository;
     }
 
     @Override
-    public Pelicula save(Pelicula pelicula) {
-        log.debug("Request to save Pelicula : {}", pelicula);
-        Long estrenoId = pelicula.getEstreno().getId();
+    public PeliculaDTO save(PeliculaDTO peliculaDTO) {
+        log.debug("Request to save Pelicula : {}", peliculaDTO);
+        Pelicula pelicula = peliculaMapper.toEntity(peliculaDTO);
+        Long estrenoId = peliculaDTO.getEstreno().getId();
         estrenoRepository.findById(estrenoId).ifPresent(pelicula::estreno);
-        Pelicula result = peliculaRepository.save(pelicula);
-        peliculaSearchRepository.save(result);
+        pelicula = peliculaRepository.save(pelicula);
+        PeliculaDTO result = peliculaMapper.toDto(pelicula);
+        peliculaSearchRepository.save(pelicula);
         return result;
     }
 
     @Override
-    public Optional<Pelicula> partialUpdate(Pelicula pelicula) {
-        log.debug("Request to partially update Pelicula : {}", pelicula);
+    public Optional<PeliculaDTO> partialUpdate(PeliculaDTO peliculaDTO) {
+        log.debug("Request to partially update Pelicula : {}", peliculaDTO);
 
         return peliculaRepository
-            .findById(pelicula.getId())
+            .findById(peliculaDTO.getId())
             .map(existingPelicula -> {
-                if (pelicula.getTitulo() != null) {
-                    existingPelicula.setTitulo(pelicula.getTitulo());
-                }
-                if (pelicula.getDescripcion() != null) {
-                    existingPelicula.setDescripcion(pelicula.getDescripcion());
-                }
-                if (pelicula.getEnCines() != null) {
-                    existingPelicula.setEnCines(pelicula.getEnCines());
-                }
+                peliculaMapper.partialUpdate(existingPelicula, peliculaDTO);
 
                 return existingPelicula;
             })
@@ -74,21 +74,22 @@ public class PeliculaServiceImpl implements PeliculaService {
                 peliculaSearchRepository.save(savedPelicula);
 
                 return savedPelicula;
-            });
+            })
+            .map(peliculaMapper::toDto);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Page<Pelicula> findAll(Pageable pageable) {
+    public Page<PeliculaDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Peliculas");
-        return peliculaRepository.findAll(pageable);
+        return peliculaRepository.findAll(pageable).map(peliculaMapper::toDto);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<Pelicula> findOne(Long id) {
+    public Optional<PeliculaDTO> findOne(Long id) {
         log.debug("Request to get Pelicula : {}", id);
-        return peliculaRepository.findById(id);
+        return peliculaRepository.findById(id).map(peliculaMapper::toDto);
     }
 
     @Override
@@ -100,8 +101,8 @@ public class PeliculaServiceImpl implements PeliculaService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<Pelicula> search(String query, Pageable pageable) {
+    public Page<PeliculaDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of Peliculas for query {}", query);
-        return peliculaSearchRepository.search(query, pageable);
+        return peliculaSearchRepository.search(query, pageable).map(peliculaMapper::toDto);
     }
 }

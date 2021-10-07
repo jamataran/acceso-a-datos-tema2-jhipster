@@ -1,14 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpResponse} from '@angular/common/http';
-import {FormBuilder, Validators} from '@angular/forms';
-import {ActivatedRoute} from '@angular/router';
-import {Observable} from 'rxjs';
-import {finalize, map} from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import { HttpResponse } from '@angular/common/http';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { finalize, map } from 'rxjs/operators';
 
-import {IReview, Review} from '../review.model';
-import {ReviewService} from '../service/review.service';
-import {IPelicula} from 'app/entities/pelicula/pelicula.model';
-import {PeliculaService} from 'app/entities/pelicula/service/pelicula.service';
+import { IReview, Review } from '../review.model';
+import { ReviewService } from '../service/review.service';
+import { IPelicula } from 'app/entities/pelicula/pelicula.model';
+import { PeliculaService } from 'app/entities/pelicula/service/pelicula.service';
 
 @Component({
   selector: 'jhi-review-update',

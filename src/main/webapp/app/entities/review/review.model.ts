@@ -1,4 +1,4 @@
-import {IPelicula} from 'app/entities/pelicula/pelicula.model';
+import { IPelicula } from 'app/entities/pelicula/pelicula.model';
 
 export interface IReview {
   id?: number;
