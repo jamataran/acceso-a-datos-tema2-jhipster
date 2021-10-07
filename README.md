@@ -117,3 +117,10 @@ _Client application generated successfully._
 **_Start your Webpack development server with:_**
 **_npm start_**
 
+## Elasticsearch
+
+Si queremos utilizar Elasticsearch en nuestro proyecto, debemos tenerlo instalado. Instalamos Docker y lanzamos:
+```bash
+docker run --name "elasticsearch-cev" -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e "xpack.security.enabled=false" docker.elastic.co/elasticsearch/elasticsearch:7.15.0
+```
+
