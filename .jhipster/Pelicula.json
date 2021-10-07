@@ -36,7 +36,7 @@
     }
   ],
   "service": "serviceImpl",
-  "dto": "no",
+  "dto": "mapstruct",
   "jpaMetamodelFiltering": true,
   "readOnly": false,
   "pagination": "infinite-scroll",
