@@ -1,21 +1,22 @@
 {
   "fields": [
     {
-      "fieldName": "estreno",
+      "fieldName": "nombre",
       "fieldType": "String"
     },
     {
-      "fieldName": "fechaEstreno",
-      "fieldType": "LocalDate"
+      "fieldName": "bio",
+      "fieldType": "String"
     }
   ],
   "relationships": [
     {
       "relationshipName": "pelicula",
       "otherEntityName": "pelicula",
-      "relationshipType": "one-to-one",
-      "ownerSide": false,
-      "otherEntityRelationshipName": "estreno"
+      "relationshipType": "many-to-many",
+      "otherEntityField": "titulo",
+      "ownerSide": true,
+      "otherEntityRelationshipName": "actor"
     }
   ],
   "service": "serviceImpl",
@@ -23,6 +24,6 @@
   "jpaMetamodelFiltering": true,
   "readOnly": false,
   "pagination": "pagination",
-  "name": "Estreno",
-  "changelogDate": "20211007125051"
+  "name": "Actor",
+  "changelogDate": "20211007165421"
 }

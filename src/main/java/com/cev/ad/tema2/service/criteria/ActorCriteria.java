@@ -5,46 +5,45 @@ import java.util.Objects;
 
 import tech.jhipster.service.Criteria;
 import tech.jhipster.service.filter.Filter;
-import tech.jhipster.service.filter.LocalDateFilter;
 import tech.jhipster.service.filter.LongFilter;
 import tech.jhipster.service.filter.StringFilter;
 
 /**
- * Criteria class for the {@link com.cev.ad.tema2.domain.Estreno} entity. This class is used
- * in {@link com.cev.ad.tema2.web.rest.EstrenoResource} to receive all the possible filtering options from
+ * Criteria class for the {@link com.cev.ad.tema2.domain.Actor} entity. This class is used
+ * in {@link com.cev.ad.tema2.web.rest.ActorResource} to receive all the possible filtering options from
  * the Http GET request parameters.
  * For example the following could be a valid request:
- * {@code /estrenos?id.greaterThan=5&attr1.contains=something&attr2.specified=false}
+ * {@code /actors?id.greaterThan=5&attr1.contains=something&attr2.specified=false}
  * As Spring is unable to properly convert the types, unless specific {@link Filter} class are used, we need to use
  * fix type specific filters.
  */
-public class EstrenoCriteria implements Serializable, Criteria {
+public class ActorCriteria implements Serializable, Criteria {
 
     private static final long serialVersionUID = 1L;
 
     private LongFilter id;
 
-    private StringFilter estreno;
+    private StringFilter nombre;
 
-    private LocalDateFilter fechaEstreno;
+    private StringFilter bio;
 
     private LongFilter peliculaId;
 
     private Boolean distinct;
 
-    public EstrenoCriteria() {}
+    public ActorCriteria() {}
 
-    public EstrenoCriteria(EstrenoCriteria other) {
+    public ActorCriteria(ActorCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
-        this.estreno = other.estreno == null ? null : other.estreno.copy();
-        this.fechaEstreno = other.fechaEstreno == null ? null : other.fechaEstreno.copy();
+        this.nombre = other.nombre == null ? null : other.nombre.copy();
+        this.bio = other.bio == null ? null : other.bio.copy();
         this.peliculaId = other.peliculaId == null ? null : other.peliculaId.copy();
         this.distinct = other.distinct;
     }
 
     @Override
-    public EstrenoCriteria copy() {
-        return new EstrenoCriteria(this);
+    public ActorCriteria copy() {
+        return new ActorCriteria(this);
     }
 
     public LongFilter getId() {
@@ -62,34 +61,34 @@ public class EstrenoCriteria implements Serializable, Criteria {
         this.id = id;
     }
 
-    public StringFilter getEstreno() {
-        return estreno;
+    public StringFilter getNombre() {
+        return nombre;
     }
 
-    public StringFilter estreno() {
-        if (estreno == null) {
-            estreno = new StringFilter();
+    public StringFilter nombre() {
+        if (nombre == null) {
+            nombre = new StringFilter();
         }
-        return estreno;
+        return nombre;
     }
 
-    public void setEstreno(StringFilter estreno) {
-        this.estreno = estreno;
+    public void setNombre(StringFilter nombre) {
+        this.nombre = nombre;
     }
 
-    public LocalDateFilter getFechaEstreno() {
-        return fechaEstreno;
+    public StringFilter getBio() {
+        return bio;
     }
 
-    public LocalDateFilter fechaEstreno() {
-        if (fechaEstreno == null) {
-            fechaEstreno = new LocalDateFilter();
+    public StringFilter bio() {
+        if (bio == null) {
+            bio = new StringFilter();
         }
-        return fechaEstreno;
+        return bio;
     }
 
-    public void setFechaEstreno(LocalDateFilter fechaEstreno) {
-        this.fechaEstreno = fechaEstreno;
+    public void setBio(StringFilter bio) {
+        this.bio = bio;
     }
 
     public LongFilter getPeliculaId() {
@@ -123,11 +122,11 @@ public class EstrenoCriteria implements Serializable, Criteria {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        final EstrenoCriteria that = (EstrenoCriteria) o;
+        final ActorCriteria that = (ActorCriteria) o;
         return (
             Objects.equals(id, that.id) &&
-            Objects.equals(estreno, that.estreno) &&
-            Objects.equals(fechaEstreno, that.fechaEstreno) &&
+            Objects.equals(nombre, that.nombre) &&
+            Objects.equals(bio, that.bio) &&
             Objects.equals(peliculaId, that.peliculaId) &&
             Objects.equals(distinct, that.distinct)
         );
@@ -135,16 +134,16 @@ public class EstrenoCriteria implements Serializable, Criteria {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, estreno, fechaEstreno, peliculaId, distinct);
+        return Objects.hash(id, nombre, bio, peliculaId, distinct);
     }
 
     // prettier-ignore
     @Override
     public String toString() {
-        return "EstrenoCriteria{" +
+        return "ActorCriteria{" +
             (id != null ? "id=" + id + ", " : "") +
-            (estreno != null ? "estreno=" + estreno + ", " : "") +
-            (fechaEstreno != null ? "fechaEstreno=" + fechaEstreno + ", " : "") +
+            (nombre != null ? "nombre=" + nombre + ", " : "") +
+            (bio != null ? "bio=" + bio + ", " : "") +
             (peliculaId != null ? "peliculaId=" + peliculaId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";

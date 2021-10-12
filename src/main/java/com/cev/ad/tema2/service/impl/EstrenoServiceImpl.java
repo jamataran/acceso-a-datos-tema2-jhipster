@@ -1,6 +1,17 @@
 package com.cev.ad.tema2.service.impl;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cev.ad.tema2.domain.Estreno;
 import com.cev.ad.tema2.repository.EstrenoRepository;
@@ -8,13 +19,6 @@ import com.cev.ad.tema2.repository.search.EstrenoSearchRepository;
 import com.cev.ad.tema2.service.EstrenoService;
 import com.cev.ad.tema2.service.dto.EstrenoDTO;
 import com.cev.ad.tema2.service.mapper.EstrenoMapper;
-import java.util.Optional;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Service Implementation for managing {@link Estreno}.
@@ -76,6 +80,20 @@ public class EstrenoServiceImpl implements EstrenoService {
     public Page<EstrenoDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Estrenos");
         return estrenoRepository.findAll(pageable).map(estrenoMapper::toDto);
+    }
+
+    /**
+     *  Get all the estrenos where Pelicula is {@code null}.
+     *  @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public List<EstrenoDTO> findAllWherePeliculaIsNull() {
+        log.debug("Request to get all estrenos where Pelicula is null");
+        return StreamSupport
+            .stream(estrenoRepository.findAll().spliterator(), false)
+            .filter(estreno -> estreno.getPelicula() == null)
+            .map(estrenoMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 
     @Override

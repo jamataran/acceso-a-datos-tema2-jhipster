@@ -44,6 +44,6 @@
     "enableGradleEnterprise": false,
     "languages": ["en", "fr"],
     "lastLiquibaseTimestamp": 1633611291000,
-    "entities": ["Categoria", "Pelicula", "Estreno", "Review"]
+    "entities": ["Categoria", "Pelicula", "Estreno", "Review", "Actor"]
   }
 }

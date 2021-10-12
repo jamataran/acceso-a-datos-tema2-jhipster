@@ -58,6 +58,8 @@ public class CacheConfiguration {
             createCache(cm, com.cev.ad.tema2.domain.Estreno.class.getName());
             createCache(cm, com.cev.ad.tema2.domain.Review.class.getName());
             createCache(cm, com.cev.ad.tema2.domain.Pelicula.class.getName() + ".reviews");
+            createCache(cm, com.cev.ad.tema2.domain.Actor.class.getName());
+            createCache(cm, com.cev.ad.tema2.domain.Actor.class.getName() + ".peliculas");
             // jhipster-needle-ehcache-add-entry
         };
     }

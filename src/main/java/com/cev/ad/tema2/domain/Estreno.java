@@ -2,9 +2,20 @@ package com.cev.ad.tema2.domain;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * A Estreno.
@@ -28,6 +39,10 @@ public class Estreno implements Serializable {
 
     @Column(name = "fecha_estreno")
     private LocalDate fechaEstreno;
+
+    @JsonIgnoreProperties(value = { "estreno", "reviews" }, allowSetters = true)
+    @OneToOne(mappedBy = "estreno")
+    private Pelicula pelicula;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -68,6 +83,25 @@ public class Estreno implements Serializable {
 
     public void setFechaEstreno(LocalDate fechaEstreno) {
         this.fechaEstreno = fechaEstreno;
+    }
+
+    public Pelicula getPelicula() {
+        return this.pelicula;
+    }
+
+    public void setPelicula(Pelicula pelicula) {
+        if (this.pelicula != null) {
+            this.pelicula.setEstreno(null);
+        }
+        if (pelicula != null) {
+            pelicula.setEstreno(this);
+        }
+        this.pelicula = pelicula;
+    }
+
+    public Estreno pelicula(Pelicula pelicula) {
+        this.setPelicula(pelicula);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

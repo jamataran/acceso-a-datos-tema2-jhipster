@@ -2,28 +2,30 @@ package com.cev.ad.tema2.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.cev.ad.tema2.IntegrationTest;
-import com.cev.ad.tema2.domain.Estreno;
-import com.cev.ad.tema2.repository.EstrenoRepository;
-import com.cev.ad.tema2.repository.search.EstrenoSearchRepository;
-import com.cev.ad.tema2.service.criteria.EstrenoCriteria;
-import com.cev.ad.tema2.service.dto.EstrenoDTO;
-import com.cev.ad.tema2.service.mapper.EstrenoMapper;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
+
 import javax.persistence.EntityManager;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -33,6 +35,14 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.cev.ad.tema2.IntegrationTest;
+import com.cev.ad.tema2.domain.Estreno;
+import com.cev.ad.tema2.domain.Pelicula;
+import com.cev.ad.tema2.repository.EstrenoRepository;
+import com.cev.ad.tema2.repository.search.EstrenoSearchRepository;
+import com.cev.ad.tema2.service.dto.EstrenoDTO;
+import com.cev.ad.tema2.service.mapper.EstrenoMapper;
 
 /**
  * Integration tests for the {@link EstrenoResource} REST controller.
@@ -379,6 +389,33 @@ class EstrenoResourceIT {
 
         // Get all the estrenoList where fechaEstreno is greater than SMALLER_FECHA_ESTRENO
         defaultEstrenoShouldBeFound("fechaEstreno.greaterThan=" + SMALLER_FECHA_ESTRENO);
+    }
+
+    @Test
+    @Transactional
+    void getAllEstrenosByPeliculaIsEqualToSomething() throws Exception {
+        // Initialize the database
+        estrenoRepository.saveAndFlush(estreno);
+        Pelicula pelicula;
+        if (TestUtil.findAll(em, Pelicula.class).isEmpty()) {
+            pelicula = PeliculaResourceIT.createEntity(em);
+            em.persist(pelicula);
+            em.flush();
+        } else {
+            pelicula = TestUtil.findAll(em, Pelicula.class).get(0);
+        }
+        em.persist(pelicula);
+        em.flush();
+        estreno.setPelicula(pelicula);
+        pelicula.setEstreno(estreno);
+        estrenoRepository.saveAndFlush(estreno);
+        Long peliculaId = pelicula.getId();
+
+        // Get all the estrenoList where pelicula equals to peliculaId
+        defaultEstrenoShouldBeFound("peliculaId.equals=" + peliculaId);
+
+        // Get all the estrenoList where pelicula equals to (peliculaId + 1)
+        defaultEstrenoShouldNotBeFound("peliculaId.equals=" + (peliculaId + 1));
     }
 
     /**

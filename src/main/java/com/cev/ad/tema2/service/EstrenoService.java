@@ -1,9 +1,12 @@
 package com.cev.ad.tema2.service;
 
-import com.cev.ad.tema2.service.dto.EstrenoDTO;
+import java.util.List;
 import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import com.cev.ad.tema2.service.dto.EstrenoDTO;
 
 /**
  * Service Interface for managing {@link com.cev.ad.tema2.domain.Estreno}.
@@ -32,6 +35,12 @@ public interface EstrenoService {
      * @return the list of entities.
      */
     Page<EstrenoDTO> findAll(Pageable pageable);
+    /**
+     * Get all the EstrenoDTO where Pelicula is {@code null}.
+     *
+     * @return the {@link List} of entities.
+     */
+    List<EstrenoDTO> findAllWherePeliculaIsNull();
 
     /**
      * Get the "id" estreno.
