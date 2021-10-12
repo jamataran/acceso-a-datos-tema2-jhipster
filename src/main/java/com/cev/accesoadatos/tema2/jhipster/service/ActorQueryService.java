@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cev.accesoadatos.tema2.jhipster.domain.Actor;
+import com.cev.accesoadatos.tema2.jhipster.domain.Actor_;
 import com.cev.accesoadatos.tema2.jhipster.domain.Pelicula_;
 import com.cev.accesoadatos.tema2.jhipster.repository.ActorRepository;
 import com.cev.accesoadatos.tema2.jhipster.repository.search.ActorSearchRepository;

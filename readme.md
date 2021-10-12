@@ -49,6 +49,7 @@ utilicéis dos terminales distintas para front y back.
     Congratulations, JHipster execution is complete!
     Sponsored with ❤️  by @oktadev. 
     ```
+  * Si al ejecutar la aplicación o abrirla en nuestro IDE tenemos algún problema es recomendable regenerar las entidades implicadas (la entidad que falla y sus relaciones), para ello: `jhipster entity nombre` y seleccionamos la opción _Yes, re generate the entity_ 
 * Arrancar la aplicación (back): ` ./mvnw`.
 * Arrancar la aplicación (front): `npm start`.
 * Compilar back: `mvn clean install`. **Siempre debemos compilar despues de hacer cualquier cosa con el asistente de JHipster**.

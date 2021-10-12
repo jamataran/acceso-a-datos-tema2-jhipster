@@ -12,6 +12,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cev.accesoadatos.tema2.jhipster.domain.Actor_;
 import com.cev.accesoadatos.tema2.jhipster.domain.Estreno_;
 import com.cev.accesoadatos.tema2.jhipster.domain.Pelicula;
 import com.cev.accesoadatos.tema2.jhipster.domain.Pelicula_;
