@@ -2,6 +2,8 @@ package com.cev.accesoadatos.tema2.jhipster.service;
 
 import java.util.List;
 
+import javax.persistence.criteria.JoinType;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -10,6 +12,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cev.accesoadatos.tema2.jhipster.domain.Estreno_;
 import com.cev.accesoadatos.tema2.jhipster.domain.Pelicula;
 import com.cev.accesoadatos.tema2.jhipster.domain.Pelicula_;
 import com.cev.accesoadatos.tema2.jhipster.repository.PeliculaRepository;
@@ -102,6 +105,12 @@ public class PeliculaQueryService extends QueryService<Pelicula> {
             }
             if (criteria.getEnCines() != null) {
                 specification = specification.and(buildSpecification(criteria.getEnCines(), Pelicula_.enCines));
+            }
+            if (criteria.getEstrenoId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(criteria.getEstrenoId(), root -> root.join(Pelicula_.estreno, JoinType.LEFT).get(Estreno_.id))
+                    );
             }
         }
         return specification;

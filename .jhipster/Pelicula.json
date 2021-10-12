@@ -21,7 +21,15 @@
       "fieldType": "Boolean"
     }
   ],
-  "relationships": [],
+  "relationships": [
+    {
+      "relationshipName": "estreno",
+      "otherEntityName": "estreno",
+      "relationshipType": "one-to-one",
+      "ownerSide": false,
+      "otherEntityRelationshipName": "pelicula"
+    }
+  ],
   "service": "serviceClass",
   "dto": "no",
   "jpaMetamodelFiltering": true,

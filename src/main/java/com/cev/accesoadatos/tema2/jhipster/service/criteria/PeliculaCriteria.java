@@ -33,6 +33,8 @@ public class PeliculaCriteria implements Serializable, Criteria {
 
     private BooleanFilter enCines;
 
+    private LongFilter estrenoId;
+
     private Boolean distinct;
 
     public PeliculaCriteria() {}
@@ -43,6 +45,7 @@ public class PeliculaCriteria implements Serializable, Criteria {
         this.fechaEstreno = other.fechaEstreno == null ? null : other.fechaEstreno.copy();
         this.descripcion = other.descripcion == null ? null : other.descripcion.copy();
         this.enCines = other.enCines == null ? null : other.enCines.copy();
+        this.estrenoId = other.estrenoId == null ? null : other.estrenoId.copy();
         this.distinct = other.distinct;
     }
 
@@ -126,6 +129,21 @@ public class PeliculaCriteria implements Serializable, Criteria {
         this.enCines = enCines;
     }
 
+    public LongFilter getEstrenoId() {
+        return estrenoId;
+    }
+
+    public LongFilter estrenoId() {
+        if (estrenoId == null) {
+            estrenoId = new LongFilter();
+        }
+        return estrenoId;
+    }
+
+    public void setEstrenoId(LongFilter estrenoId) {
+        this.estrenoId = estrenoId;
+    }
+
     public Boolean getDistinct() {
         return distinct;
     }
@@ -149,13 +167,14 @@ public class PeliculaCriteria implements Serializable, Criteria {
             Objects.equals(fechaEstreno, that.fechaEstreno) &&
             Objects.equals(descripcion, that.descripcion) &&
             Objects.equals(enCines, that.enCines) &&
+            Objects.equals(estrenoId, that.estrenoId) &&
             Objects.equals(distinct, that.distinct)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, titulo, fechaEstreno, descripcion, enCines, distinct);
+        return Objects.hash(id, titulo, fechaEstreno, descripcion, enCines, estrenoId, distinct);
     }
 
     // prettier-ignore
@@ -167,6 +186,7 @@ public class PeliculaCriteria implements Serializable, Criteria {
             (fechaEstreno != null ? "fechaEstreno=" + fechaEstreno + ", " : "") +
             (descripcion != null ? "descripcion=" + descripcion + ", " : "") +
             (enCines != null ? "enCines=" + enCines + ", " : "") +
+            (estrenoId != null ? "estrenoId=" + estrenoId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }

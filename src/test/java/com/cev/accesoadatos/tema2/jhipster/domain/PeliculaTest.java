@@ -1,7 +1,5 @@
 package com.cev.accesoadatos.tema2.jhipster.domain;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.junit.jupiter.api.Test;
 
 import com.cev.accesoadatos.tema2.jhipster.web.rest.TestUtil;

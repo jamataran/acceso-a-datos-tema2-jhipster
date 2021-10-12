@@ -1,4 +1,5 @@
 import * as dayjs from 'dayjs';
+import {IEstreno} from 'app/entities/estreno/estreno.model';
 
 export interface IPelicula {
   id?: number;
@@ -6,6 +7,7 @@ export interface IPelicula {
   fechaEstreno?: dayjs.Dayjs | null;
   descripcion?: string | null;
   enCines?: boolean | null;
+  estreno?: IEstreno | null;
 }
 
 export class Pelicula implements IPelicula {
@@ -14,7 +16,8 @@ export class Pelicula implements IPelicula {
     public titulo?: string,
     public fechaEstreno?: dayjs.Dayjs | null,
     public descripcion?: string | null,
-    public enCines?: boolean | null
+    public enCines?: boolean | null,
+    public estreno?: IEstreno | null
   ) {
     this.enCines = this.enCines ?? false;
   }

@@ -5,7 +5,6 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -35,6 +34,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cev.accesoadatos.tema2.jhipster.IntegrationTest;
+import com.cev.accesoadatos.tema2.jhipster.domain.Estreno;
 import com.cev.accesoadatos.tema2.jhipster.domain.Pelicula;
 import com.cev.accesoadatos.tema2.jhipster.repository.PeliculaRepository;
 import com.cev.accesoadatos.tema2.jhipster.repository.search.PeliculaSearchRepository;
@@ -493,6 +493,33 @@ class PeliculaResourceIT {
 
         // Get all the peliculaList where enCines is null
         defaultPeliculaShouldNotBeFound("enCines.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllPeliculasByEstrenoIsEqualToSomething() throws Exception {
+        // Initialize the database
+        peliculaRepository.saveAndFlush(pelicula);
+        Estreno estreno;
+        if (TestUtil.findAll(em, Estreno.class).isEmpty()) {
+            estreno = EstrenoResourceIT.createEntity(em);
+            em.persist(estreno);
+            em.flush();
+        } else {
+            estreno = TestUtil.findAll(em, Estreno.class).get(0);
+        }
+        em.persist(estreno);
+        em.flush();
+        pelicula.setEstreno(estreno);
+        estreno.setPelicula(pelicula);
+        peliculaRepository.saveAndFlush(pelicula);
+        Long estrenoId = estreno.getId();
+
+        // Get all the peliculaList where estreno equals to estrenoId
+        defaultPeliculaShouldBeFound("estrenoId.equals=" + estrenoId);
+
+        // Get all the peliculaList where estreno equals to (estrenoId + 1)
+        defaultPeliculaShouldNotBeFound("estrenoId.equals=" + (estrenoId + 1));
     }
 
     /**

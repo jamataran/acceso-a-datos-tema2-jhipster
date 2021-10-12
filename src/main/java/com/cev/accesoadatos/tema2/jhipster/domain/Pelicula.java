@@ -8,12 +8,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * A Pelicula.
@@ -44,6 +47,10 @@ public class Pelicula implements Serializable {
 
     @Column(name = "en_cines")
     private Boolean enCines;
+
+    @JsonIgnoreProperties(value = { "pelicula" }, allowSetters = true)
+    @OneToOne(mappedBy = "pelicula")
+    private Estreno estreno;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -110,6 +117,25 @@ public class Pelicula implements Serializable {
 
     public void setEnCines(Boolean enCines) {
         this.enCines = enCines;
+    }
+
+    public Estreno getEstreno() {
+        return this.estreno;
+    }
+
+    public void setEstreno(Estreno estreno) {
+        if (this.estreno != null) {
+            this.estreno.setPelicula(null);
+        }
+        if (estreno != null) {
+            estreno.setPelicula(this);
+        }
+        this.estreno = estreno;
+    }
+
+    public Pelicula estreno(Estreno estreno) {
+        this.setEstreno(estreno);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

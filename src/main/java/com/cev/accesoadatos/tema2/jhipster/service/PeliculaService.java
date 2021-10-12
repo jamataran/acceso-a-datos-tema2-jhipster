@@ -92,6 +92,19 @@ public class PeliculaService {
     }
 
     /**
+     *  Get all the peliculas where Estreno is {@code null}.
+     *  @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public List<Pelicula> findAllWhereEstrenoIsNull() {
+        log.debug("Request to get all peliculas where Estreno is null");
+        return StreamSupport
+            .stream(peliculaRepository.findAll().spliterator(), false)
+            .filter(pelicula -> pelicula.getEstreno() == null)
+            .collect(Collectors.toList());
+    }
+
+    /**
      * Get one pelicula by id.
      *
      * @param id the id of the entity.
