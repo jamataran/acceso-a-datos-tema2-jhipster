@@ -56,6 +56,18 @@
           <label class="form-control-label" for="field_enCines">En Cines</label>
           <input type="checkbox" class="form-check" name="enCines" id="field_enCines" data-cy="enCines" formControlName="enCines" />
         </div>
+
+        <div class="form-group">
+          <label for="field_actors">Actor</label>
+          <select class="form-control" id="field_actors" data-cy="actor" multiple name="actors" formControlName="actors">
+            <option
+              [ngValue]="getSelectedActor(actorOption, editForm.get('actors')!.value)"
+              *ngFor="let actorOption of actorsSharedCollection; trackBy: trackActorById"
+            >
+              {{ actorOption.nombre }}
+            </option>
+          </select>
+        </div>
       </div>
 
       <div>

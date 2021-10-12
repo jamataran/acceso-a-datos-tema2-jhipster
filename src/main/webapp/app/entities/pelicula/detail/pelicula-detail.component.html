@@ -30,6 +30,13 @@
         <dd>
           <span>{{ pelicula.enCines }}</span>
         </dd>
+        <dt><span>Actor</span></dt>
+        <dd>
+          <span *ngFor="let actor of pelicula.actors; let last = last">
+            <a [routerLink]="['/actor', actor?.id, 'view']">{{ actor.nombre }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

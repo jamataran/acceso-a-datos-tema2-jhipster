@@ -2,6 +2,7 @@ package com.cev.accesoadatos.tema2.jhipster.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -15,6 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
@@ -25,19 +27,23 @@ import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cev.accesoadatos.tema2.jhipster.IntegrationTest;
+import com.cev.accesoadatos.tema2.jhipster.domain.Actor;
 import com.cev.accesoadatos.tema2.jhipster.domain.Estreno;
 import com.cev.accesoadatos.tema2.jhipster.domain.Pelicula;
 import com.cev.accesoadatos.tema2.jhipster.repository.PeliculaRepository;
 import com.cev.accesoadatos.tema2.jhipster.repository.search.PeliculaSearchRepository;
+import com.cev.accesoadatos.tema2.jhipster.service.PeliculaService;
 
 /**
  * Integration tests for the {@link PeliculaResource} REST controller.
@@ -69,6 +75,12 @@ class PeliculaResourceIT {
 
     @Autowired
     private PeliculaRepository peliculaRepository;
+
+    @Mock
+    private PeliculaRepository peliculaRepositoryMock;
+
+    @Mock
+    private PeliculaService peliculaServiceMock;
 
     /**
      * This repository is mocked in the com.cev.accesoadatos.tema2.jhipster.repository.search test package.
@@ -197,6 +209,24 @@ class PeliculaResourceIT {
             .andExpect(jsonPath("$.[*].fechaEstreno").value(hasItem(DEFAULT_FECHA_ESTRENO.toString())))
             .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION)))
             .andExpect(jsonPath("$.[*].enCines").value(hasItem(DEFAULT_EN_CINES.booleanValue())));
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllPeliculasWithEagerRelationshipsIsEnabled() throws Exception {
+        when(peliculaServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restPeliculaMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(peliculaServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllPeliculasWithEagerRelationshipsIsNotEnabled() throws Exception {
+        when(peliculaServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restPeliculaMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(peliculaServiceMock, times(1)).findAllWithEagerRelationships(any());
     }
 
     @Test
@@ -520,6 +550,32 @@ class PeliculaResourceIT {
 
         // Get all the peliculaList where estreno equals to (estrenoId + 1)
         defaultPeliculaShouldNotBeFound("estrenoId.equals=" + (estrenoId + 1));
+    }
+
+    @Test
+    @Transactional
+    void getAllPeliculasByActorIsEqualToSomething() throws Exception {
+        // Initialize the database
+        peliculaRepository.saveAndFlush(pelicula);
+        Actor actor;
+        if (TestUtil.findAll(em, Actor.class).isEmpty()) {
+            actor = ActorResourceIT.createEntity(em);
+            em.persist(actor);
+            em.flush();
+        } else {
+            actor = TestUtil.findAll(em, Actor.class).get(0);
+        }
+        em.persist(actor);
+        em.flush();
+        pelicula.addActor(actor);
+        peliculaRepository.saveAndFlush(pelicula);
+        Long actorId = actor.getId();
+
+        // Get all the peliculaList where actor equals to actorId
+        defaultPeliculaShouldBeFound("actorId.equals=" + actorId);
+
+        // Get all the peliculaList where actor equals to (actorId + 1)
+        defaultPeliculaShouldNotBeFound("actorId.equals=" + (actorId + 1));
     }
 
     /**

@@ -112,6 +112,12 @@ public class PeliculaQueryService extends QueryService<Pelicula> {
                         buildSpecification(criteria.getEstrenoId(), root -> root.join(Pelicula_.estreno, JoinType.LEFT).get(Estreno_.id))
                     );
             }
+            if (criteria.getActorId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(criteria.getActorId(), root -> root.join(Pelicula_.actors, JoinType.LEFT).get(Actor_.id))
+                    );
+            }
         }
         return specification;
     }

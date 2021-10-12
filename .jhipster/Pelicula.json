@@ -28,6 +28,14 @@
       "relationshipType": "one-to-one",
       "ownerSide": false,
       "otherEntityRelationshipName": "pelicula"
+    },
+    {
+      "relationshipName": "actor",
+      "otherEntityName": "actor",
+      "relationshipType": "many-to-many",
+      "otherEntityField": "nombre",
+      "ownerSide": true,
+      "otherEntityRelationshipName": "pelicula"
     }
   ],
   "service": "serviceClass",

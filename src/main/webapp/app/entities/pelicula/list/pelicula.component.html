@@ -55,6 +55,7 @@
           <th scope="col"><span>Fecha Estreno</span></th>
           <th scope="col"><span>Descripcion</span></th>
           <th scope="col"><span>En Cines</span></th>
+          <th scope="col"><span>Actor</span></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -67,6 +68,12 @@
           <td>{{ pelicula.fechaEstreno | formatMediumDatetime }}</td>
           <td>{{ pelicula.descripcion }}</td>
           <td>{{ pelicula.enCines }}</td>
+          <td>
+            <span *ngFor="let actor of pelicula.actors; let last = last">
+              <a class="form-control-static" [routerLink]="['/actor', actor.id, 'view']">{{ actor.nombre }}</a
+              >{{ last ? '' : ', ' }}
+            </span>
+          </td>
           <td class="text-right">
             <div class="btn-group">
               <button

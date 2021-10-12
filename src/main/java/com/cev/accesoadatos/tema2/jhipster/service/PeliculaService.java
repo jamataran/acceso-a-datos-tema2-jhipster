@@ -7,6 +7,8 @@ import java.util.stream.StreamSupport;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -88,7 +90,16 @@ public class PeliculaService {
     @Transactional(readOnly = true)
     public List<Pelicula> findAll() {
         log.debug("Request to get all Peliculas");
-        return peliculaRepository.findAll();
+        return peliculaRepository.findAllWithEagerRelationships();
+    }
+
+    /**
+     * Get all the peliculas with eager load of many-to-many relationships.
+     *
+     * @return the list of entities.
+     */
+    public Page<Pelicula> findAllWithEagerRelationships(Pageable pageable) {
+        return peliculaRepository.findAllWithEagerRelationships(pageable);
     }
 
     /**
@@ -113,7 +124,7 @@ public class PeliculaService {
     @Transactional(readOnly = true)
     public Optional<Pelicula> findOne(Long id) {
         log.debug("Request to get Pelicula : {}", id);
-        return peliculaRepository.findById(id);
+        return peliculaRepository.findOneWithEagerRelationships(id);
     }
 
     /**

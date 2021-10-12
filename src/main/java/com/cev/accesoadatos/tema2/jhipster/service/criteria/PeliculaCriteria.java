@@ -35,6 +35,8 @@ public class PeliculaCriteria implements Serializable, Criteria {
 
     private LongFilter estrenoId;
 
+    private LongFilter actorId;
+
     private Boolean distinct;
 
     public PeliculaCriteria() {}
@@ -46,6 +48,7 @@ public class PeliculaCriteria implements Serializable, Criteria {
         this.descripcion = other.descripcion == null ? null : other.descripcion.copy();
         this.enCines = other.enCines == null ? null : other.enCines.copy();
         this.estrenoId = other.estrenoId == null ? null : other.estrenoId.copy();
+        this.actorId = other.actorId == null ? null : other.actorId.copy();
         this.distinct = other.distinct;
     }
 
@@ -144,6 +147,21 @@ public class PeliculaCriteria implements Serializable, Criteria {
         this.estrenoId = estrenoId;
     }
 
+    public LongFilter getActorId() {
+        return actorId;
+    }
+
+    public LongFilter actorId() {
+        if (actorId == null) {
+            actorId = new LongFilter();
+        }
+        return actorId;
+    }
+
+    public void setActorId(LongFilter actorId) {
+        this.actorId = actorId;
+    }
+
     public Boolean getDistinct() {
         return distinct;
     }
@@ -168,13 +186,14 @@ public class PeliculaCriteria implements Serializable, Criteria {
             Objects.equals(descripcion, that.descripcion) &&
             Objects.equals(enCines, that.enCines) &&
             Objects.equals(estrenoId, that.estrenoId) &&
+            Objects.equals(actorId, that.actorId) &&
             Objects.equals(distinct, that.distinct)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, titulo, fechaEstreno, descripcion, enCines, estrenoId, distinct);
+        return Objects.hash(id, titulo, fechaEstreno, descripcion, enCines, estrenoId, actorId, distinct);
     }
 
     // prettier-ignore
@@ -187,6 +206,7 @@ public class PeliculaCriteria implements Serializable, Criteria {
             (descripcion != null ? "descripcion=" + descripcion + ", " : "") +
             (enCines != null ? "enCines=" + enCines + ", " : "") +
             (estrenoId != null ? "estrenoId=" + estrenoId + ", " : "") +
+            (actorId != null ? "actorId=" + actorId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }

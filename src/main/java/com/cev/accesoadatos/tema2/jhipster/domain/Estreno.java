@@ -43,7 +43,7 @@ public class Estreno implements Serializable {
     @Column(name = "lugar", length = 255, nullable = false)
     private String lugar;
 
-    @JsonIgnoreProperties(value = { "estreno" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "estreno", "actors" }, allowSetters = true)
     @OneToOne
     @JoinColumn(unique = true)
     private Pelicula pelicula;

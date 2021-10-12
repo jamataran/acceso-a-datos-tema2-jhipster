@@ -56,6 +56,9 @@ public class CacheConfiguration {
             createCache(cm, com.cev.accesoadatos.tema2.jhipster.domain.Categoria.class.getName());
             createCache(cm, com.cev.accesoadatos.tema2.jhipster.domain.Pelicula.class.getName());
             createCache(cm, com.cev.accesoadatos.tema2.jhipster.domain.Estreno.class.getName());
+            createCache(cm, com.cev.accesoadatos.tema2.jhipster.domain.Actor.class.getName());
+            createCache(cm, com.cev.accesoadatos.tema2.jhipster.domain.Pelicula.class.getName() + ".actors");
+            createCache(cm, com.cev.accesoadatos.tema2.jhipster.domain.Actor.class.getName() + ".peliculas");
             // jhipster-needle-ehcache-add-entry
         };
     }

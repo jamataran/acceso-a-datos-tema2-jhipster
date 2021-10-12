@@ -5,42 +5,21 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
 
     <!--
-        Added the entity Pelicula.
+        Added the entity Actor.
     -->
-    <changeSet id="20211012150330-1" author="jhipster">
-        <createTable tableName="pelicula">
+    <changeSet id="20211012155308-1" author="jhipster">
+        <createTable tableName="actor">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="titulo" type="varchar(255)">
+            <column name="nombre" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            <column name="fecha_estreno" type="${datetimeType}">
-                <constraints nullable="true" />
-            </column>
-            <column name="descripcion" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
-            <column name="en_cines" type="boolean">
-                <constraints nullable="true" />
+            <column name="apellidos" type="varchar(255)">
+                <constraints nullable="false" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
-        <dropDefaultValue tableName="pelicula" columnName="fecha_estreno" columnDataType="${datetimeType}"/>
-    </changeSet>
-
-    <changeSet id="20211012150330-1-relations" author="jhipster">
-
-        <createTable tableName="rel_pelicula__actor">
-            <column name="actor_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="pelicula_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <addPrimaryKey columnNames="pelicula_id, actor_id" tableName="rel_pelicula__actor"/>
     </changeSet>
 
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
@@ -53,17 +32,15 @@
           This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
           Spring Boot configuration key.
     -->
-    <changeSet id="20211012150330-1-data" author="jhipster" context="faker">
+    <changeSet id="20211012155308-1-data" author="jhipster" context="faker">
         <loadData
-                  file="config/liquibase/fake-data/pelicula.csv"
+                  file="config/liquibase/fake-data/actor.csv"
                   separator=";"
-                  tableName="pelicula"
+                  tableName="actor"
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
-            <column name="titulo" type="string"/>
-            <column name="fecha_estreno" type="date"/>
-            <column name="descripcion" type="string"/>
-            <column name="en_cines" type="boolean"/>
+            <column name="nombre" type="string"/>
+            <column name="apellidos" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

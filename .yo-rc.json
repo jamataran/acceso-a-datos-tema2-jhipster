@@ -43,7 +43,7 @@
     "clientThemeVariant": "",
     "enableGradleEnterprise": false,
     "languages": ["en", "fr"],
-    "lastLiquibaseTimestamp": 1634052615000,
-    "entities": ["Categoria", "Pelicula", "Estreno"]
+    "lastLiquibaseTimestamp": 1634053988000,
+    "entities": ["Categoria", "Pelicula", "Estreno", "Actor"]
   }
 }

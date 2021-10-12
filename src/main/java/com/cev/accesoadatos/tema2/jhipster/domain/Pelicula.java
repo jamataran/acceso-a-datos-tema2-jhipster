@@ -2,12 +2,17 @@ package com.cev.accesoadatos.tema2.jhipster.domain;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -51,6 +56,16 @@ public class Pelicula implements Serializable {
     @JsonIgnoreProperties(value = { "pelicula" }, allowSetters = true)
     @OneToOne(mappedBy = "pelicula")
     private Estreno estreno;
+
+    @ManyToMany
+    @JoinTable(
+        name = "rel_pelicula__actor",
+        joinColumns = @JoinColumn(name = "pelicula_id"),
+        inverseJoinColumns = @JoinColumn(name = "actor_id")
+    )
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "peliculas" }, allowSetters = true)
+    private Set<Actor> actors = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -135,6 +150,31 @@ public class Pelicula implements Serializable {
 
     public Pelicula estreno(Estreno estreno) {
         this.setEstreno(estreno);
+        return this;
+    }
+
+    public Set<Actor> getActors() {
+        return this.actors;
+    }
+
+    public void setActors(Set<Actor> actors) {
+        this.actors = actors;
+    }
+
+    public Pelicula actors(Set<Actor> actors) {
+        this.setActors(actors);
+        return this;
+    }
+
+    public Pelicula addActor(Actor actor) {
+        this.actors.add(actor);
+        actor.getPeliculas().add(this);
+        return this;
+    }
+
+    public Pelicula removeActor(Actor actor) {
+        this.actors.remove(actor);
+        actor.getPeliculas().remove(this);
         return this;
     }
 
