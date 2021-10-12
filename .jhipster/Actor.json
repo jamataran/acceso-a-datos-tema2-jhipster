@@ -1,0 +1,29 @@
+{
+  "fields": [
+    {
+      "fieldName": "nombre",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "bio",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipName": "pelicula",
+      "otherEntityName": "pelicula",
+      "relationshipType": "many-to-many",
+      "otherEntityField": "titulo",
+      "ownerSide": true,
+      "otherEntityRelationshipName": "actor"
+    }
+  ],
+  "service": "serviceImpl",
+  "dto": "mapstruct",
+  "jpaMetamodelFiltering": true,
+  "readOnly": false,
+  "pagination": "pagination",
+  "name": "Actor",
+  "changelogDate": "20211007165421"
+}
