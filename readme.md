@@ -63,10 +63,9 @@ utilicéis dos terminales distintas para front y back.
 ## ¿Cómo probar el código?
 
 Para probar este código tienes varias opciones:
-a) Clonar el código de este GitHub
-b) Descargar el código de la aplicación. 
+a) Clonar el código de este GitHub b) Descargar el código de la aplicación.
 
-A continuación, puedes abrir 
+A continuación, puedes abrir cualquier terminal y lanzar los comandos que he puesto antes.
 
 ## ¿Como llegar hasta aquí?
 
