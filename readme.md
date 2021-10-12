@@ -40,10 +40,16 @@ docker run --name "elasticsearch-cev" -p 9200:9200 -p 9300:9300 -e "discovery.ty
 Estos comandos están en formato *ix, si queréis ejecutarlos en Windows, debéis ejecutar el cmd. Es recomendable que
 utilicéis dos terminales distintas para front y back.
 
+* Generar entidades, regenerar, etc.. : `jhipster`. **Siempre con front/back apagado, después recompilar**.
 * Arrancar la aplicación (back): ` ./mvnw`.
 * Arrancar la aplicación (front): `npm start`.
-* Compilar back: `mvn clean install`
-* Compilar front: `npm install --force`
+* Compilar back: `mvn clean install`. **Siempre debemos compilar despues de hacer cualquier cosa con el asistente de JHipster**.
+* Compilar front: `npm install --force` **Siempre debemos compilar despues de hacer cualquier cosa con el asistente de JHipster**.
+
+## Links últiles
+* [Aplicación](http://localhost:9000/), login con admin/admin o user/user
+* [Base de datos](http://localhost:8080/h2-console)
+* [Swagger](http://localhost:8080/admin/docs)
 
 ## ¿Cómo probar el código?
 
@@ -189,3 +195,234 @@ Everything is configured, generating the entity...
 ```
 
 
+
+
+### Creando entidades con filtrado
+
+```shell
+
+╰─ jhipster entity pelicula 
+INFO! Using JHipster version installed locally in current project's node_modules
+
+The entity Pelicula is being created.
+
+
+Generating field #1
+
+? Do you want to add a field to your entity? Yes
+? What is the name of your field? titulo
+? What is the type of your field? String
+? Do you want to add validation rules to your field? Yes
+? Which validation rules do you want to add? Required, Minimum length, Maximum length
+? What is the minimum length of your field? 10
+? What is the maximum length of your field? 255
+
+================= Pelicula =================
+Fields
+titulo (String) required minlength='10' maxlength='255'
+
+
+Generating field #2
+
+? Do you want to add a field to your entity? Yes
+? What is the name of your field? fechaEstreno
+? What is the type of your field? Instant
+? Do you want to add validation rules to your field? No
+
+================= Pelicula =================
+Fields
+titulo (String) required minlength='10' maxlength='255'
+fechaEstreno (Instant) 
+
+
+Generating field #3
+
+? Do you want to add a field to your entity? Yes
+? What is the name of your field? descripcion
+? What is the type of your field? String
+? Do you want to add validation rules to your field? Yes
+? Which validation rules do you want to add? 
+
+================= Pelicula =================
+Fields
+titulo (String) required minlength='10' maxlength='255'
+fechaEstreno (Instant) 
+descripcion (String) 
+
+
+Generating field #4
+
+? Do you want to add a field to your entity? Yes
+? What is the name of your field? enCines
+? What is the type of your field? Boolean
+? Do you want to add validation rules to your field? No
+
+================= Pelicula =================
+Fields
+titulo (String) required minlength='10' maxlength='255'
+fechaEstreno (Instant) 
+descripcion (String) 
+enCines (Boolean) 
+
+
+Generating field #5
+
+? Do you want to add a field to your entity? No
+
+================= Pelicula =================
+Fields
+titulo (String) required minlength='10' maxlength='255'
+fechaEstreno (Instant) 
+descripcion (String) 
+enCines (Boolean) 
+
+
+Generating relationships to other entities
+
+? Do you want to add a relationship to another entity? No
+
+================= Pelicula =================
+Fields
+titulo (String) required minlength='10' maxlength='255'
+fechaEstreno (Instant) 
+descripcion (String) 
+enCines (Boolean) 
+
+
+
+? Do you want to use separate service class for your business logic? Yes, generate a separate service class
+? Do you want to use a Data Transfer Object (DTO)? No, use the entity directly
+? Do you want to add filtering? Dynamic filtering for the entities with JPA Static metamodel
+? Is this entity read-only? No
+? Do you want pagination and sorting on your entity? No
+
+Everything is configured, generating the entity...
+
+
+Found the .jhipster/Categoria.json configuration file, entity can be automatically generated!
+
+     info Creating changelog for entities Categoria,Pelicula
+jsxBracketSameLine is deprecated.
+    force .yo-rc-global.json
+    force .yo-rc.json
+    force .jhipster/Pelicula.json
+    force .jhipster/Categoria.json
+identical src/main/resources/config/liquibase/fake-data/blob/hipster.png
+ conflict src/main/resources/config/liquibase/changelog/20211012145248_added_entity_Categoria.xml
+? Overwrite src/main/resources/config/liquibase/changelog/20211012145248_added_entity_Categoria.xml? overwrite this and all others
+    force src/main/resources/config/liquibase/changelog/20211012145248_added_entity_Categoria.xml
+identical src/main/resources/config/liquibase/fake-data/categoria.csv
+   create src/main/resources/config/liquibase/changelog/20211012150330_added_entity_Pelicula.xml
+   create src/main/webapp/app/entities/pelicula/pelicula.model.ts
+   create src/main/resources/config/liquibase/fake-data/pelicula.csv
+   create src/main/webapp/app/entities/pelicula/route/pelicula-routing-resolve.service.ts
+   create src/main/webapp/app/entities/pelicula/update/pelicula-update.component.ts
+   create src/main/java/com/cev/accesoadatos/tema2/jhipster/repository/PeliculaRepository.java
+   create src/main/webapp/app/entities/pelicula/delete/pelicula-delete-dialog.component.ts
+   create src/main/webapp/app/entities/pelicula/list/pelicula.component.html
+   create src/main/webapp/app/entities/pelicula/detail/pelicula-detail.component.spec.ts
+   create src/main/webapp/app/entities/pelicula/list/pelicula.component.ts
+   create src/main/java/com/cev/accesoadatos/tema2/jhipster/service/PeliculaQueryService.java
+   create src/main/webapp/app/entities/pelicula/detail/pelicula-detail.component.html
+   create src/main/webapp/app/entities/pelicula/list/pelicula.component.spec.ts
+   create src/main/webapp/app/entities/pelicula/detail/pelicula-detail.component.ts
+   create src/main/java/com/cev/accesoadatos/tema2/jhipster/service/PeliculaService.java
+   create src/main/webapp/app/entities/pelicula/route/pelicula-routing-resolve.service.spec.ts
+   create src/main/webapp/app/entities/pelicula/pelicula.module.ts
+   create src/main/webapp/app/entities/pelicula/service/pelicula.service.ts
+   create src/main/java/com/cev/accesoadatos/tema2/jhipster/service/criteria/PeliculaCriteria.java
+   create src/main/webapp/app/entities/pelicula/service/pelicula.service.spec.ts
+   create src/main/java/com/cev/accesoadatos/tema2/jhipster/repository/search/PeliculaSearchRepository.java
+   create src/main/java/com/cev/accesoadatos/tema2/jhipster/web/rest/PeliculaResource.java
+   create src/main/webapp/app/entities/pelicula/update/pelicula-update.component.spec.ts
+   create src/main/webapp/app/entities/pelicula/update/pelicula-update.component.html
+   create src/main/webapp/app/entities/pelicula/route/pelicula-routing.module.ts
+   create src/main/webapp/app/entities/pelicula/delete/pelicula-delete-dialog.component.spec.ts
+   create src/main/webapp/app/entities/pelicula/delete/pelicula-delete-dialog.component.html
+   create src/main/java/com/cev/accesoadatos/tema2/jhipster/domain/Pelicula.java
+   create src/test/java/com/cev/accesoadatos/tema2/jhipster/domain/PeliculaTest.java
+identical src/test/java/com/cev/accesoadatos/tema2/jhipster/repository/search/CategoriaSearchRepositoryMockConfiguration.java
+   create src/test/java/com/cev/accesoadatos/tema2/jhipster/web/rest/PeliculaResourceIT.java
+   create src/test/java/com/cev/accesoadatos/tema2/jhipster/repository/search/PeliculaSearchRepositoryMockConfiguration.java
+    force src/main/webapp/app/entities/categoria/categoria.model.ts
+    force src/main/webapp/app/entities/categoria/update/categoria-update.component.ts
+    force src/main/webapp/app/entities/categoria/list/categoria.component.html
+    force src/main/webapp/app/entities/categoria/delete/categoria-delete-dialog.component.ts
+    force src/main/webapp/app/entities/categoria/detail/categoria-detail.component.html
+    force src/main/webapp/app/entities/categoria/detail/categoria-detail.component.spec.ts
+    force src/main/webapp/app/entities/entity-routing.module.ts
+    force src/main/resources/config/liquibase/master.xml
+    force src/main/webapp/app/entities/categoria/categoria.module.ts
+    force src/main/webapp/app/entities/categoria/list/categoria.component.spec.ts
+    force src/main/webapp/app/entities/categoria/route/categoria-routing.module.ts
+    force src/main/webapp/app/entities/categoria/route/categoria-routing-resolve.service.spec.ts
+    force src/main/java/com/cev/accesoadatos/tema2/jhipster/web/rest/CategoriaResource.java
+    force src/main/webapp/app/entities/categoria/route/categoria-routing-resolve.service.ts
+    force src/main/webapp/app/entities/categoria/service/categoria.service.spec.ts
+    force src/main/java/com/cev/accesoadatos/tema2/jhipster/repository/search/CategoriaSearchRepository.java
+    force src/main/webapp/app/entities/categoria/list/categoria.component.ts
+    force src/main/webapp/app/entities/categoria/update/categoria-update.component.spec.ts
+    force src/main/java/com/cev/accesoadatos/tema2/jhipster/repository/CategoriaRepository.java
+    force src/main/webapp/app/entities/categoria/detail/categoria-detail.component.ts
+    force src/main/webapp/app/entities/categoria/delete/categoria-delete-dialog.component.spec.ts
+    force src/main/webapp/app/entities/categoria/service/categoria.service.ts
+    force src/main/webapp/app/entities/categoria/update/categoria-update.component.html
+    force src/main/webapp/app/entities/categoria/delete/categoria-delete-dialog.component.html
+    force src/main/java/com/cev/accesoadatos/tema2/jhipster/config/CacheConfiguration.java
+    force src/main/java/com/cev/accesoadatos/tema2/jhipster/domain/Categoria.java
+    force src/test/java/com/cev/accesoadatos/tema2/jhipster/web/rest/CategoriaResourceIT.java
+    force src/test/java/com/cev/accesoadatos/tema2/jhipster/domain/CategoriaTest.java
+    force src/main/webapp/app/layouts/navbar/navbar.component.html
+
+No change to package.json was detected. No package manager install will be executed.
+Entity Pelicula generated successfully.
+Entity Categoria generated successfully.
+
+Running `webapp:build` to update client app
+
+
+> jhipster@0.0.1-SNAPSHOT webapp:build /Users/jose/PROYECTOS/CEV/AD/acceso-a-datos-tema2-jhipster
+> npm run clean-www && npm run webapp:build:dev
+
+
+> jhipster@0.0.1-SNAPSHOT clean-www /Users/jose/PROYECTOS/CEV/AD/acceso-a-datos-tema2-jhipster
+> rimraf target/classes/static/app/{src,target/}
+
+
+> jhipster@0.0.1-SNAPSHOT webapp:build:dev /Users/jose/PROYECTOS/CEV/AD/acceso-a-datos-tema2-jhipster
+> ng build --configuration development
+
+⠙ Generating browser application bundles (phase: building)...<w> [webpack.cache.PackFileCacheStrategy] Restoring pack failed from /Users/jose/PROYECTOS/CEV/AD/acceso-a-datos-tema2-jhipster/target/webpack/default-development.pack: TypeError: Cannot read property 'length' of undefined
+✔ Browser application bundle generation complete.
+✔ Copying assets complete.
+✔ Index html generation complete.
+
+Initial Chunk Files                                                    | Names         |      Size
+styles.css                                                             | styles        | 183.38 kB
+polyfills.js                                                           | polyfills     | 134.19 kB
+runtime.js                                                             | runtime       |  12.21 kB
+main.js                                                                | main          | 780 bytes
+
+                                                                       | Initial Total | 330.53 kB
+
+Lazy Chunk Files                                                       | Names         |      Size
+src_main_webapp_bootstrap_ts.js                                        | -             |   4.35 MB
+src_main_webapp_app_admin_metrics_metrics_module_ts.js                 | -             | 167.86 kB
+src_main_webapp_app_account_account_module_ts.js                       | -             | 156.05 kB
+src_main_webapp_app_admin_user-management_user-management_module_ts.js | -             | 105.99 kB
+src_main_webapp_app_entities_categoria_categoria_module_ts.js          | -             |  96.62 kB
+src_main_webapp_app_entities_pelicula_pelicula_module_ts.js            | -             |  88.69 kB
+src_main_webapp_app_admin_health_health_module_ts.js                   | -             |  28.73 kB
+src_main_webapp_app_admin_configuration_configuration_module_ts.js     | -             |  25.41 kB
+src_main_webapp_app_admin_logs_logs_module_ts.js                       | -             |  23.13 kB
+src_main_webapp_app_login_login_module_ts.js                           | -             |  16.12 kB
+src_main_webapp_app_admin_docs_docs_module_ts.js                       | -             |   4.69 kB
+src_main_webapp_app_admin_admin-routing_module_ts.js                   | -             |   4.09 kB
+common.js                                                              | common        |   2.06 kB
+
+Build at: 2021-10-12T15:04:10.945Z - Hash: 5035a57dbfeac83de765 - Time: 28622ms
+Congratulations, JHipster execution is complete!
+Sponsored with ❤️  by @oktadev.
+
+
+```

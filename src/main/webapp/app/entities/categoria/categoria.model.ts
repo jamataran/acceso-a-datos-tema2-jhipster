@@ -6,8 +6,7 @@ export interface ICategoria {
 }
 
 export class Categoria implements ICategoria {
-  constructor(public id?: number, public nombre?: string, public imagenContentType?: string, public imagen?: string) {
-  }
+  constructor(public id?: number, public nombre?: string, public imagenContentType?: string, public imagen?: string) {}
 }
 
 export function getCategoriaIdentifier(categoria: ICategoria): number | undefined {

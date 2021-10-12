@@ -23,7 +23,7 @@ describe('Component Tests', () => {
         providers: [
           {
             provide: ActivatedRoute,
-            useValue: {snapshot: {queryParams: {}}},
+            useValue: { snapshot: { queryParams: {} } },
           },
         ],
       })
@@ -38,7 +38,7 @@ describe('Component Tests', () => {
       jest.spyOn(service, 'query').mockReturnValue(
         of(
           new HttpResponse({
-            body: [{id: 123}],
+            body: [{ id: 123 }],
             headers,
           })
         )
@@ -51,7 +51,7 @@ describe('Component Tests', () => {
 
       // THEN
       expect(service.query).toHaveBeenCalled();
-      expect(comp.categorias?.[0]).toEqual(expect.objectContaining({id: 123}));
+      expect(comp.categorias?.[0]).toEqual(expect.objectContaining({ id: 123 }));
     });
   });
 });

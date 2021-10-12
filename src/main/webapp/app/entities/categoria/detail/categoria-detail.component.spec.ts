@@ -18,7 +18,7 @@ describe('Component Tests', () => {
         providers: [
           {
             provide: ActivatedRoute,
-            useValue: {data: of({categoria: {id: 123}})},
+            useValue: { data: of({ categoria: { id: 123 } }) },
           },
         ],
       })
@@ -36,7 +36,7 @@ describe('Component Tests', () => {
         comp.ngOnInit();
 
         // THEN
-        expect(comp.categoria).toEqual(expect.objectContaining({id: 123}));
+        expect(comp.categoria).toEqual(expect.objectContaining({ id: 123 }));
       });
     });
 
@@ -56,7 +56,7 @@ describe('Component Tests', () => {
 
     describe('openFile', () => {
       it('Should call openFile from DataUtils', () => {
-        const newWindow = {...window};
+        const newWindow = { ...window };
         newWindow.document.write = jest.fn();
         window.open = jest.fn(() => newWindow);
         window.onload = jest.fn(() => newWindow);

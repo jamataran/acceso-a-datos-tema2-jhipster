@@ -3,11 +3,7 @@
     {
       "fieldName": "nombre",
       "fieldType": "String",
-      "fieldValidateRules": [
-        "required",
-        "minlength",
-        "maxlength"
-      ],
+      "fieldValidateRules": ["required", "minlength", "maxlength"],
       "fieldValidateRulesMinlength": "10",
       "fieldValidateRulesMaxlength": "200"
     },
@@ -15,9 +11,7 @@
       "fieldName": "imagen",
       "fieldType": "byte[]",
       "fieldTypeBlobContent": "image",
-      "fieldValidateRules": [
-        "required"
-      ]
+      "fieldValidateRules": ["required"]
     }
   ],
   "relationships": [],

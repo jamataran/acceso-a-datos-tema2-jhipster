@@ -11,11 +11,10 @@ import {DataUtils} from 'app/core/util/data-util.service';
 export class CategoriaDetailComponent implements OnInit {
   categoria: ICategoria | null = null;
 
-  constructor(protected dataUtils: DataUtils, protected activatedRoute: ActivatedRoute) {
-  }
+  constructor(protected dataUtils: DataUtils, protected activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe(({categoria}) => {
+    this.activatedRoute.data.subscribe(({ categoria }) => {
       this.categoria = categoria;
     });
   }

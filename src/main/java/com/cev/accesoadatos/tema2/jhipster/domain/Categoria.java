@@ -50,21 +50,17 @@ public class Categoria implements Serializable {
         return this.id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Categoria id(Long id) {
         this.setId(id);
         return this;
     }
 
-    public String getNombre() {
-        return this.nombre;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public String getNombre() {
+        return this.nombre;
     }
 
     public Categoria nombre(String nombre) {
@@ -72,12 +68,12 @@ public class Categoria implements Serializable {
         return this;
     }
 
-    public byte[] getImagen() {
-        return this.imagen;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public void setImagen(byte[] imagen) {
-        this.imagen = imagen;
+    public byte[] getImagen() {
+        return this.imagen;
     }
 
     public Categoria imagen(byte[] imagen) {
@@ -85,17 +81,21 @@ public class Categoria implements Serializable {
         return this;
     }
 
-    public String getImagenContentType() {
-        return this.imagenContentType;
+    public void setImagen(byte[] imagen) {
+        this.imagen = imagen;
     }
 
-    public void setImagenContentType(String imagenContentType) {
-        this.imagenContentType = imagenContentType;
+    public String getImagenContentType() {
+        return this.imagenContentType;
     }
 
     public Categoria imagenContentType(String imagenContentType) {
         this.imagenContentType = imagenContentType;
         return this;
+    }
+
+    public void setImagenContentType(String imagenContentType) {
+        this.imagenContentType = imagenContentType;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

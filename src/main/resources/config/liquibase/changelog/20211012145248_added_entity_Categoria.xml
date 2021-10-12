@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <databaseChangeLog
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
 
     <!--
@@ -13,13 +13,13 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="nombre" type="varchar(200)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" />
             </column>
             <column name="imagen" type="longblob">
-                <constraints nullable="false"/>
+                <constraints nullable="false" />
             </column>
             <column name="imagen_content_type" type="varchar(255)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
@@ -37,10 +37,10 @@
     -->
     <changeSet id="20211012145248-1-data" author="jhipster" context="faker">
         <loadData
-            file="config/liquibase/fake-data/categoria.csv"
-            separator=";"
-            tableName="categoria"
-            usePreparedStatements="true">
+                  file="config/liquibase/fake-data/categoria.csv"
+                  separator=";"
+                  tableName="categoria"
+                  usePreparedStatements="true">
             <column name="id" type="numeric"/>
             <column name="nombre" type="string"/>
             <column name="imagen" type="blob"/>

@@ -11,16 +11,15 @@ import {getCategoriaIdentifier, ICategoria} from '../categoria.model';
 export type EntityResponseType = HttpResponse<ICategoria>;
 export type EntityArrayResponseType = HttpResponse<ICategoria[]>;
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class CategoriaService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/categorias');
   protected resourceSearchUrl = this.applicationConfigService.getEndpointFor('api/_search/categorias');
 
-  constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {
-  }
+  constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
   create(categoria: ICategoria): Observable<EntityResponseType> {
-    return this.http.post<ICategoria>(this.resourceUrl, categoria, {observe: 'response'});
+    return this.http.post<ICategoria>(this.resourceUrl, categoria, { observe: 'response' });
   }
 
   update(categoria: ICategoria): Observable<EntityResponseType> {
@@ -36,21 +35,21 @@ export class CategoriaService {
   }
 
   find(id: number): Observable<EntityResponseType> {
-    return this.http.get<ICategoria>(`${this.resourceUrl}/${id}`, {observe: 'response'});
+    return this.http.get<ICategoria>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
-    return this.http.get<ICategoria[]>(this.resourceUrl, {params: options, observe: 'response'});
+    return this.http.get<ICategoria[]>(this.resourceUrl, { params: options, observe: 'response' });
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {
-    return this.http.delete(`${this.resourceUrl}/${id}`, {observe: 'response'});
+    return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
   search(req: Search): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
-    return this.http.get<ICategoria[]>(this.resourceSearchUrl, {params: options, observe: 'response'});
+    return this.http.get<ICategoria[]>(this.resourceSearchUrl, { params: options, observe: 'response' });
   }
 
   addCategoriaToCollectionIfMissing(

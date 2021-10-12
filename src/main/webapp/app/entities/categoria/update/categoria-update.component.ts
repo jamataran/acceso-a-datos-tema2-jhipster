@@ -32,11 +32,10 @@ export class CategoriaUpdateComponent implements OnInit {
     protected elementRef: ElementRef,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe(({categoria}) => {
+    this.activatedRoute.data.subscribe(({ categoria }) => {
       this.updateForm(categoria);
     });
   }
@@ -52,7 +51,7 @@ export class CategoriaUpdateComponent implements OnInit {
   setFileData(event: Event, field: string, isImage: boolean): void {
     this.dataUtils.loadFileToForm(event, this.editForm, field, isImage).subscribe({
       error: (err: FileLoadError) =>
-        this.eventManager.broadcast(new EventWithContent<AlertError>('jhipsterApp.error', {message: err.message})),
+        this.eventManager.broadcast(new EventWithContent<AlertError>('jhipsterApp.error', { message: err.message })),
     });
   }
 

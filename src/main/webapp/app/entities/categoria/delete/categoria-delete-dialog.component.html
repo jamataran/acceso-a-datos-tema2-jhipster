@@ -1,8 +1,8 @@
-<form (ngSubmit)="confirmDelete(categoria.id!)" *ngIf="categoria" name="deleteForm">
+<form *ngIf="categoria" name="deleteForm" (ngSubmit)="confirmDelete(categoria.id!)">
   <div class="modal-header">
     <h4 class="modal-title" data-cy="categoriaDeleteDialogHeading">Confirm delete operation</h4>
 
-    <button (click)="cancel()" aria-hidden="true" class="close" data-dismiss="modal" type="button">&times;</button>
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="cancel()">&times;</button>
   </div>
 
   <div class="modal-body">
@@ -12,11 +12,11 @@
   </div>
 
   <div class="modal-footer">
-    <button (click)="cancel()" class="btn btn-secondary" data-dismiss="modal" type="button">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()">
       <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
     </button>
 
-    <button class="btn btn-danger" data-cy="entityConfirmDeleteButton" id="jhi-confirm-delete-categoria" type="submit">
+    <button id="jhi-confirm-delete-categoria" data-cy="entityConfirmDeleteButton" type="submit" class="btn btn-danger">
       <fa-icon icon="times"></fa-icon>&nbsp;<span>Delete</span>
     </button>
   </div>

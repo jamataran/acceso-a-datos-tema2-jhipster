@@ -14,8 +14,7 @@ import com.cev.accesoadatos.tema2.jhipster.domain.Categoria;
 /**
  * Spring Data Elasticsearch repository for the {@link Categoria} entity.
  */
-public interface CategoriaSearchRepository extends ElasticsearchRepository<Categoria, Long>, CategoriaSearchRepositoryInternal {
-}
+public interface CategoriaSearchRepository extends ElasticsearchRepository<Categoria, Long>, CategoriaSearchRepositoryInternal {}
 
 interface CategoriaSearchRepositoryInternal {
     Stream<Categoria> search(String query);

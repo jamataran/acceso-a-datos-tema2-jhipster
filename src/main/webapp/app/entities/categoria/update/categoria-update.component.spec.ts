@@ -37,9 +37,9 @@ describe('Component Tests', () => {
 
     describe('ngOnInit', () => {
       it('Should update editForm', () => {
-        const categoria: ICategoria = {id: 456};
+        const categoria: ICategoria = { id: 456 };
 
-        activatedRoute.data = of({categoria});
+        activatedRoute.data = of({ categoria });
         comp.ngOnInit();
 
         expect(comp.editForm.value).toEqual(expect.objectContaining(categoria));
@@ -50,16 +50,16 @@ describe('Component Tests', () => {
       it('Should call update service on save for existing entity', () => {
         // GIVEN
         const saveSubject = new Subject<HttpResponse<Categoria>>();
-        const categoria = {id: 123};
+        const categoria = { id: 123 };
         jest.spyOn(categoriaService, 'update').mockReturnValue(saveSubject);
         jest.spyOn(comp, 'previousState');
-        activatedRoute.data = of({categoria});
+        activatedRoute.data = of({ categoria });
         comp.ngOnInit();
 
         // WHEN
         comp.save();
         expect(comp.isSaving).toEqual(true);
-        saveSubject.next(new HttpResponse({body: categoria}));
+        saveSubject.next(new HttpResponse({ body: categoria }));
         saveSubject.complete();
 
         // THEN
@@ -74,13 +74,13 @@ describe('Component Tests', () => {
         const categoria = new Categoria();
         jest.spyOn(categoriaService, 'create').mockReturnValue(saveSubject);
         jest.spyOn(comp, 'previousState');
-        activatedRoute.data = of({categoria});
+        activatedRoute.data = of({ categoria });
         comp.ngOnInit();
 
         // WHEN
         comp.save();
         expect(comp.isSaving).toEqual(true);
-        saveSubject.next(new HttpResponse({body: categoria}));
+        saveSubject.next(new HttpResponse({ body: categoria }));
         saveSubject.complete();
 
         // THEN
@@ -92,10 +92,10 @@ describe('Component Tests', () => {
       it('Should set isSaving to false on error', () => {
         // GIVEN
         const saveSubject = new Subject<HttpResponse<Categoria>>();
-        const categoria = {id: 123};
+        const categoria = { id: 123 };
         jest.spyOn(categoriaService, 'update').mockReturnValue(saveSubject);
         jest.spyOn(comp, 'previousState');
-        activatedRoute.data = of({categoria});
+        activatedRoute.data = of({ categoria });
         comp.ngOnInit();
 
         // WHEN

@@ -11,5 +11,4 @@ import {CategoriaRoutingModule} from './route/categoria-routing.module';
   declarations: [CategoriaComponent, CategoriaDetailComponent, CategoriaUpdateComponent, CategoriaDeleteDialogComponent],
   entryComponents: [CategoriaDeleteDialogComponent],
 })
-export class CategoriaModule {
-}
+export class CategoriaModule {}

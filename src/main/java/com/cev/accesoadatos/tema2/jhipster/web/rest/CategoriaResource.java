@@ -43,12 +43,16 @@ import tech.jhipster.web.util.ResponseUtil;
 @Transactional
 public class CategoriaResource {
 
-    private static final String ENTITY_NAME = "categoria";
     private final Logger log = LoggerFactory.getLogger(CategoriaResource.class);
-    private final CategoriaRepository categoriaRepository;
-    private final CategoriaSearchRepository categoriaSearchRepository;
+
+    private static final String ENTITY_NAME = "categoria";
+
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
+
+    private final CategoriaRepository categoriaRepository;
+
+    private final CategoriaSearchRepository categoriaSearchRepository;
 
     public CategoriaResource(CategoriaRepository categoriaRepository, CategoriaSearchRepository categoriaSearchRepository) {
         this.categoriaRepository = categoriaRepository;
@@ -79,7 +83,7 @@ public class CategoriaResource {
     /**
      * {@code PUT  /categorias/:id} : Updates an existing categoria.
      *
-     * @param id        the id of the categoria to save.
+     * @param id the id of the categoria to save.
      * @param categoria the categoria to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated categoria,
      * or with status {@code 400 (Bad Request)} if the categoria is not valid,
@@ -114,7 +118,7 @@ public class CategoriaResource {
     /**
      * {@code PATCH  /categorias/:id} : Partial updates given fields of an existing categoria, field will ignore if it is null
      *
-     * @param id        the id of the categoria to save.
+     * @param id the id of the categoria to save.
      * @param categoria the categoria to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated categoria,
      * or with status {@code 400 (Bad Request)} if the categoria is not valid,
@@ -122,7 +126,7 @@ public class CategoriaResource {
      * or with status {@code 500 (Internal Server Error)} if the categoria couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PatchMapping(value = "/categorias/{id}", consumes = {"application/json", "application/merge-patch+json"})
+    @PatchMapping(value = "/categorias/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<Categoria> partialUpdateCategoria(
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody Categoria categoria

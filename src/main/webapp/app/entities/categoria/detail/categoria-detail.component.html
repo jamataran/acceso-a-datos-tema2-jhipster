@@ -3,7 +3,7 @@
     <div *ngIf="categoria">
       <h2 data-cy="categoriaDetailsHeading"><span>Categoria</span></h2>
 
-      <hr/>
+      <hr />
 
       <jhi-alert-error></jhi-alert-error>
 
@@ -24,8 +24,8 @@
             <a (click)="openFile(categoria.imagen, categoria.imagenContentType)">
               <img
                 [src]="'data:' + categoria.imagenContentType + ';base64,' + categoria.imagen"
-                alt="categoria image"
                 style="max-width: 100%"
+                alt="categoria image"
               />
             </a>
             {{ categoria.imagenContentType }}, {{ byteSize(categoria.imagen) }}
@@ -33,11 +33,11 @@
         </dd>
       </dl>
 
-      <button (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton" type="submit">
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
         <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
       </button>
 
-      <button [routerLink]="['/categoria', categoria.id, 'edit']" class="btn btn-primary" type="button">
+      <button type="button" [routerLink]="['/categoria', categoria.id, 'edit']" class="btn btn-primary">
         <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
       </button>
     </div>

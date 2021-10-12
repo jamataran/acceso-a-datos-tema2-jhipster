@@ -6,7 +6,7 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {ActivatedRouteSnapshot, Router} from '@angular/router';
 import {of} from 'rxjs';
 
-import {ICategoria, Categoria} from '../categoria.model';
+import {Categoria, ICategoria} from '../categoria.model';
 import {CategoriaService} from '../service/categoria.service';
 
 import {CategoriaRoutingResolveService} from './categoria-routing-resolve.service';
@@ -34,8 +34,8 @@ describe('Service Tests', () => {
     describe('resolve', () => {
       it('should return ICategoria returned by find', () => {
         // GIVEN
-        service.find = jest.fn(id => of(new HttpResponse({body: {id}})));
-        mockActivatedRouteSnapshot.params = {id: 123};
+        service.find = jest.fn(id => of(new HttpResponse({ body: { id } })));
+        mockActivatedRouteSnapshot.params = { id: 123 };
 
         // WHEN
         routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
@@ -44,7 +44,7 @@ describe('Service Tests', () => {
 
         // THEN
         expect(service.find).toBeCalledWith(123);
-        expect(resultCategoria).toEqual({id: 123});
+        expect(resultCategoria).toEqual({ id: 123 });
       });
 
       it('should return new ICategoria if id is not provided', () => {
@@ -64,8 +64,8 @@ describe('Service Tests', () => {
 
       it('should route to 404 page if data not found in server', () => {
         // GIVEN
-        jest.spyOn(service, 'find').mockReturnValue(of(new HttpResponse({body: null as unknown as Categoria})));
-        mockActivatedRouteSnapshot.params = {id: 123};
+        jest.spyOn(service, 'find').mockReturnValue(of(new HttpResponse({ body: null as unknown as Categoria })));
+        mockActivatedRouteSnapshot.params = { id: 123 };
 
         // WHEN
         routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {

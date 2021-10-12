@@ -1,16 +1,15 @@
 import {Injectable} from '@angular/core';
 import {HttpResponse} from '@angular/common/http';
-import {Resolve, ActivatedRouteSnapshot, Router} from '@angular/router';
-import {Observable, of, EMPTY} from 'rxjs';
+import {ActivatedRouteSnapshot, Resolve, Router} from '@angular/router';
+import {EMPTY, Observable, of} from 'rxjs';
 import {mergeMap} from 'rxjs/operators';
 
-import {ICategoria, Categoria} from '../categoria.model';
+import {Categoria, ICategoria} from '../categoria.model';
 import {CategoriaService} from '../service/categoria.service';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class CategoriaRoutingResolveService implements Resolve<ICategoria> {
-  constructor(protected service: CategoriaService, protected router: Router) {
-  }
+  constructor(protected service: CategoriaService, protected router: Router) {}
 
   resolve(route: ActivatedRouteSnapshot): Observable<ICategoria> | Observable<never> {
     const id = route.params['id'];

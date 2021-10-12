@@ -10,5 +10,4 @@ import com.cev.accesoadatos.tema2.jhipster.domain.Categoria;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
-}
+public interface CategoriaRepository extends JpaRepository<Categoria, Long> {}
