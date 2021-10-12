@@ -1,0 +1,90 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form (ngSubmit)="save()" [formGroup]="editForm" name="editForm" novalidate role="form">
+      <h2 data-cy="CategoriaCreateUpdateHeading" id="jhi-categoria-heading">Create or edit a Categoria</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div [hidden]="editForm.get('id')!.value == null" class="form-group">
+          <label class="form-control-label" for="field_id">ID</label>
+          <input [readonly]="true" class="form-control" data-cy="id" formControlName="id" id="field_id" name="id"
+                 type="number"/>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_nombre">Nombre</label>
+          <input class="form-control" data-cy="nombre" formControlName="nombre" id="field_nombre" name="nombre"
+                 type="text"/>
+          <div
+            *ngIf="editForm.get('nombre')!.invalid && (editForm.get('nombre')!.dirty || editForm.get('nombre')!.touched)">
+            <small *ngIf="editForm.get('nombre')?.errors?.required" class="form-text text-danger"> This field is
+              required. </small>
+            <small *ngIf="editForm.get('nombre')?.errors?.minlength" class="form-text text-danger">
+              This field is required to be at least 10 characters.
+            </small>
+            <small *ngIf="editForm.get('nombre')?.errors?.maxlength" class="form-text text-danger">
+              This field cannot be longer than 200 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_imagen">Imagen</label>
+          <div>
+            <img
+              *ngIf="editForm.get('imagen')!.value"
+              [src]="'data:' + editForm.get('imagenContentType')!.value + ';base64,' + editForm.get('imagen')!.value"
+              alt="categoria image"
+              style="max-height: 100px"
+            />
+            <div *ngIf="editForm.get('imagen')!.value" class="form-text text-danger clearfix">
+              <span class="pull-left">{{ editForm.get('imagenContentType')!.value }}
+                , {{ byteSize(editForm.get('imagen')!.value) }}</span>
+              <button
+                (click)="clearInputImage('imagen', 'imagenContentType', 'file_imagen')"
+                class="btn btn-secondary btn-xs pull-right"
+                type="button"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input (change)="setFileData($event, 'imagen', true)" accept="image/*" data-cy="imagen" id="file_imagen"
+                   type="file"/>
+          </div>
+          <input class="form-control" data-cy="imagen" formControlName="imagen" id="field_imagen" name="imagen"
+                 type="hidden"/>
+          <input
+            class="form-control"
+            formControlName="imagenContentType"
+            id="field_imagenContentType"
+            name="imagenContentType"
+            type="hidden"
+          />
+          <div
+            *ngIf="editForm.get('imagen')!.invalid && (editForm.get('imagen')!.dirty || editForm.get('imagen')!.touched)">
+            <small *ngIf="editForm.get('imagen')?.errors?.required" class="form-text text-danger"> This field is
+              required. </small>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button (click)="previousState()" class="btn btn-secondary" data-cy="entityCreateCancelButton" id="cancel-save"
+                type="button">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+          data-cy="entityCreateSaveButton"
+          id="save-entity"
+          type="submit"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+<form (ngSubmit)="confirmDelete(categoria.id!)" *ngIf="categoria" name="deleteForm">
+  <div class="modal-header">
+    <h4 class="modal-title" data-cy="categoriaDeleteDialogHeading">Confirm delete operation</h4>
+
+    <button (click)="cancel()" aria-hidden="true" class="close" data-dismiss="modal" type="button">&times;</button>
+  </div>
+
+  <div class="modal-body">
+    <jhi-alert-error></jhi-alert-error>
+
+    <p id="jhi-delete-categoria-heading">Are you sure you want to delete this Categoria?</p>
+  </div>
+
+  <div class="modal-footer">
+    <button (click)="cancel()" class="btn btn-secondary" data-dismiss="modal" type="button">
+      <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+    </button>
+
+    <button class="btn btn-danger" data-cy="entityConfirmDeleteButton" id="jhi-confirm-delete-categoria" type="submit">
+      <fa-icon icon="times"></fa-icon>&nbsp;<span>Delete</span>
+    </button>
+  </div>
+</form>
