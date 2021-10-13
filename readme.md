@@ -2,6 +2,22 @@
 
 En este repositorio encontraréis el código explicado en los vídeos de los apartados 2.5 y siguientes del aula virtual.
 
+## Contenido
+
+- [Acceso a Datos, tema 2: JHipster](#acceso-a-datos--tema-2--jhipster)
+    * [Entorno](#entorno)
+        + [Elasticsearch](#elasticsearch)
+    * [Comandos útiles](#comandos--tiles)
+    * [Links últiles](#links--ltiles)
+    * [¿Cómo probar el código?](#-c-mo-probar-el-c-digo-)
+    * [¿Como llegar hasta aquí?](#-como-llegar-hasta-aqu--)
+        + [Creando nuestra nueva aplicación](#creando-nuestra-nueva-aplicaci-n)
+        + [Creando entidades](#creando-entidades)
+            - [Categoria](#categoria)
+        + [Creando entidades con filtrado](#creando-entidades-con-filtrado)
+        + [One to One con JHipster](#one-to-one-con-jhipster)
+        + [Many to Many](#many-to-many)
+
 ## Entorno
 
 Este repositorio se ha creado el 12 de octubre de 2021 con las versiones más actuales de Java, Node, Jhipster y Maven.
@@ -201,9 +217,6 @@ imagen (byte[] image) required
 
 Everything is configured, generating the entity...
 ```
-
-
-
 
 ### Creando entidades con filtrado
 
